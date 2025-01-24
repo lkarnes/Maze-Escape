@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Maze="*res://scripts/maze/maze.gd"
 
+[debug]
+
+file_logging/enable_file_logging=true
+
 [input]
 
 up={
