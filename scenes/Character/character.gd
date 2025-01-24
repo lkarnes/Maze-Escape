@@ -13,6 +13,8 @@ func handle_movement():
 		animations.play('idle');
 	elif (direction.x > 0):
 		animations.play('run_right');
-	else:
+	elif (direction.x < 0):
+		animations.play('run_left');
+	elif animations.current_animation == 'idle':
 		animations.play('run_left');
 	move_and_slide();
