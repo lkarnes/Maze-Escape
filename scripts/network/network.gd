@@ -1,11 +1,12 @@
 extends Node
 
+const PACKET_READ_LIMIT: int = 32
+const LOBBY_NUMBERS_MAX: int = 10
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var is_host: bool = false
+var lobby_id: int = 0
+var lobby_members: Array = []
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func create_lobby():
+	if lobby_id == 0:
+		Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, LOBBY_NUMBERS_MAX)
