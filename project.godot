@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Maze="*res://scripts/maze/maze.gd"
-Network="*res://scripts/network/init.gd"
+Network="*res://scenes/Lobby/init.gd"
 
 [debug]
 
