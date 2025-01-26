@@ -10,7 +10,9 @@ func _ready() -> void:
 	Steam.steamInit()
 	
 	steam_id = Steam.getSteamID()	
+	print("SteamID: ", steam_id)
 	steam_username = Steam.getPersonaName()
+	print("SteamUN: ", steam_username)
 	
 
 func _process(_delta: float) -> void:

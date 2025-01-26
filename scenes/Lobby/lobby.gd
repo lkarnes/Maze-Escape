@@ -8,9 +8,9 @@ func _process(delta: float) -> void:
 
 
 func _on_host_pressed() -> void:
-	Network.create_lobby()
+	NetworkImpl.create_lobby()
 
 
 func _on_join_pressed() -> void:
 	var id: int = int(lobby_id.text)
-	Network.join_lobbby(id)
+	NetworkImpl.join_lobby(id)

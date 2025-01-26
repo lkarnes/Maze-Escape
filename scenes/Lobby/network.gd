@@ -58,13 +58,13 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, send_type: int =
 	if this_target == 0:
 		if lobby_members.size() > 1:
 			for member in lobby_members:
-				if member["steam_id"] != Network.steam_id:
+				if member["steam_id"] != NetworkSetup.steam_id:
 					Steam.sendP2PPacket(member["steam_id"], this_data, send_type, channel)
 		else:
 			Steam.sendP2PPacket(this_target, this_data, send_type, channel)
 		
 func make_p2p_handshake():
-	send_p2p_packet(0, {"message": "handshake", "steam_id": Network.steam_id, "username": Network.steam_username})
+	send_p2p_packet(0, {"message": "handshake", "steam_id": NetworkSetup.steam_id, "username": NetworkSetup.steam_username})
 			
 
 func _on_p2p_session_request(remote_id: int):
