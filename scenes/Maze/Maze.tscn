@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://wdgkr6qdlw3v"]
+
+[ext_resource type="PackedScene" uid="uid://c2t7pyavmn5y6" path="res://scenes/tilesets/Grass.tscn" id="1_h8sx8"]
+[ext_resource type="Script" path="res://scenes/Maze/maze1.gd" id="1_wf6cb"]
+
+[node name="Maze1" type="Node2D"]
+script = ExtResource("1_wf6cb")
+
+[node name="Grass" parent="." instance=ExtResource("1_h8sx8")]
+unique_name_in_owner = true

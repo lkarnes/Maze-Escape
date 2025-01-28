@@ -3,13 +3,6 @@ extends CharacterBody2D
 var player_speed: int = 200;
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 
-func _ready():
-	var maze = Maze.generate_maze(20,20);
-	
-	for row in maze:
-		print(row);
-	
-
 func _physics_process(delta):
 	handle_movement();
 
