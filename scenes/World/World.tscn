@@ -12,4 +12,3 @@ tile_map_data = PackedByteArray("AADw//b/AAABAAEAAADw//f/AAABAAEAAADw//j/AAABAAE
 
 [node name="Character" parent="." instance=ExtResource("1_yy4tg")]
 position = Vector2(-8, 148)
-script = null

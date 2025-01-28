@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://b1qku1upu43gg"]
 
-[ext_resource type="Script" path="res://scenes/Character/Character.gd" id="1_cfmm2"]
+[ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="Texture2D" uid="uid://bav44ff20e3wi" path="res://assets/Character/Robot_run_spritesheet.png" id="2_jfppk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v3d0l"]
@@ -96,7 +96,7 @@ _data = {
 
 [node name="Character" type="CharacterBody2D"]
 collision_mask = 2
-script = ExtResource("1_cfmm2")
+script = ExtResource("1_1fefy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -11)
