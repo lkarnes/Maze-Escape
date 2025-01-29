@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var player_speed: int = 200;
+var player_speed: int = 150;
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 
 func _physics_process(delta):

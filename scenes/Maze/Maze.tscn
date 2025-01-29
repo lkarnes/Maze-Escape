@@ -8,3 +8,7 @@ script = ExtResource("1_wf6cb")
 
 [node name="Grass" parent="." instance=ExtResource("1_h8sx8")]
 unique_name_in_owner = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visibility_layer = 2
+color = Color(0.151276, 0.151276, 0.151276, 1)

@@ -7,6 +7,7 @@
 y_sort_enabled = true
 
 [node name="Character" parent="." instance=ExtResource("1_yy4tg")]
+top_level = true
 position = Vector2(148, 102)
 
 [node name="Maze" parent="." instance=ExtResource("3_wipgs")]
