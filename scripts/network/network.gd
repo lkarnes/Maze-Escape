@@ -31,7 +31,6 @@ func _on_lobby_created(connect: int, this_lobby_id: int):
 	print('CREATED LOBBY: ', lobby_id)
 	var set_relay: bool = Steam.allowP2PPacketRelay(true)
 	print('SET RELAY')
-	join_lobby(lobby_id)
 	
 func join_lobby(this_lobby_id: int):
 	Steam.joinLobby(this_lobby_id)
@@ -66,8 +65,8 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, send_type: int =
 			for member in lobby_members:
 				if member["steam_id"] != NetworkSetup.steam_id:
 					Steam.sendP2PPacket(member["steam_id"], this_data, send_type, channel)
-		else:
-			Steam.sendP2PPacket(this_target, this_data, send_type, channel)
+	else:
+		Steam.sendP2PPacket(this_target, this_data, send_type, channel)
 		
 func make_p2p_handshake():
 	send_p2p_packet(0, {"message": "handshake", "steam_id": NetworkSetup.steam_id, "username": NetworkSetup.steam_username})
