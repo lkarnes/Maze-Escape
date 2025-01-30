@@ -28,12 +28,16 @@ func _on_lobby_created(connect: int, this_lobby_id: int):
 	
 	Steam.setLobbyData(lobby_id, "name", "MazeEscapeLobby")
 	
+	print('CREATED LOBBY: ', lobby_id)
 	var set_relay: bool = Steam.allowP2PPacketRelay(true)
+	print('SET RELAY')
+	join_lobby(lobby_id)
 	
 func join_lobby(this_lobby_id: int):
 	Steam.joinLobby(this_lobby_id)
 	
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int):
+	print('JOINING LOBBY')
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		lobby_id = this_lobby_id
 		
@@ -41,12 +45,14 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		make_p2p_handshake()
 		
 func get_lobby_members():
+	print('GETTING LOBBY MEMBERS!')
 	lobby_members.clear()
 	
 	var num_of_lobby_members: int = Steam.getNumLobbyMembers(lobby_id)
 	for member in range(0, num_of_lobby_members):
 		var member_steam_id: int = Steam.getLobbyMemberByIndex(lobby_id, member)
 		var member_steam_name: String = Steam.getFriendPersonaName(member_steam_id)
+		print('MEMBER: ', member_steam_name)
 		
 		lobby_members.append({"steam_id": member_steam_id, "steam_name": member_steam_name})
 		

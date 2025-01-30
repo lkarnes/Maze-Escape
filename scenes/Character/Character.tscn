@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="Texture2D" uid="uid://bav44ff20e3wi" path="res://assets/Character/Robot_run_spritesheet.png" id="2_jfppk"]
-[ext_resource type="Script" path="res://scenes/Character/in_game_ui.gd" id="3_qa51c"]
+[ext_resource type="Texture2D" uid="uid://dpcaattuwb7rg" path="res://assets/Character/light.png" id="3_64u3g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v3d0l"]
 radius = 4.12311
@@ -96,16 +96,34 @@ _data = {
 }
 
 [node name="Character" type="CharacterBody2D"]
+light_mask = 0
+z_index = 1
 collision_mask = 2
 script = ExtResource("1_1fefy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 2
 position = Vector2(0, -11)
 texture = ExtResource("2_jfppk")
 flip_h = true
 hframes = 12
 vframes = 2
-frame = 11
+frame = 12
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -1)
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 1
+texture = ExtResource("3_64u3g")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(0, -1)
+energy = 0.5
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 1
+texture = ExtResource("3_64u3g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -119,7 +137,7 @@ shape = SubResource("CapsuleShape2D_srfnj")
 debug_color = Color(0.964706, 0, 0.486275, 0.419608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
