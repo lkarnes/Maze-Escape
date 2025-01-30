@@ -5,6 +5,7 @@
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
+position = Vector2(579, 315)
 
 [node name="Grass" parent="." instance=ExtResource("2_t8jwy")]
 z_index = -1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=10 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="Texture2D" uid="uid://bav44ff20e3wi" path="res://assets/Character/Robot_run_spritesheet.png" id="2_jfppk"]
+[ext_resource type="Script" path="res://scenes/Character/in_game_ui.gd" id="3_qa51c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v3d0l"]
 radius = 4.12311
@@ -125,3 +126,32 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_sfky7")
 }
+
+[node name="InGameUi" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_qa51c")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="InGameUi"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = 70.0
+offset_right = -142.0
+offset_bottom = 101.0
+grow_vertical = 0
+
+[node name="QuitToMainMenuButton" type="Button" parent="InGameUi/ButtonContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Quit"
+
+[connection signal="pressed" from="InGameUi/ButtonContainer/QuitToMainMenuButton" to="InGameUi" method="_on_button_pressed"]
