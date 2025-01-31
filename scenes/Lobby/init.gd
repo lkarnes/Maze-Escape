@@ -7,14 +7,13 @@ func _init():
 	OS.set_environment("SteamGameID", str(480))
 
 func _ready() -> void:
-	var initialize_response: Dictionary = Steam.steamInitEx( true, 480 )
-	print("Did Steam initialize?: %s " % initialize_response)
-
-	steam_id = Steam.getSteamID()
-	print("ID: ", steam_id)
+	Steam.steamInit()
+	
+	steam_id = Steam.getSteamID()	
+	print("SteamID: ", steam_id)
 	steam_username = Steam.getPersonaName()
-	print("username: ", steam_username)
-
+	print("SteamUN: ", steam_username)
+	
 
 func _process(_delta: float) -> void:
 	Steam.run_callbacks()
