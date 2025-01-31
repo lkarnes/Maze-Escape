@@ -4,8 +4,8 @@ extends Area2D
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 
 func swing(direction):
-	animations.animation_set_next('swing_' + direction, 'idle_' + direction);
+	animations.play('swing_' + direction);
 
 func set_direction(direction):
-	if animations.current_animation != 'idle_' + direction: 
+	if animations.current_animation != 'idle_' + direction and animations.current_animation != 'swing_' + direction: 
 		animations.play('idle_' + direction);
