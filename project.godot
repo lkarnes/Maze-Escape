@@ -11,19 +11,19 @@ config_version=5
 [application]
 
 config/name="Maze-Escape"
-run/main_scene="res://scenes/MainMenu/main_menu.tscn"
+run/main_scene="res://scenes/World/World.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Maze="*res://scripts/maze/maze.gd"
-NetworkSetup="*res://scripts/network/init.gd"
-NetworkImpl="*res://scripts/network/network.gd"
+NetworkSetup="*res://scenes/Lobby/init.gd"
+NetworkImpl="*res://scenes/Lobby/network.gd"
 
 [debug]
 
-file_logging/enable_file_logging.pc=false
+file_logging/enable_file_logging=true
 
 [input]
 
