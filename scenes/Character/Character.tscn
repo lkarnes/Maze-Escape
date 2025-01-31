@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=12 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="Texture2D" uid="uid://bav44ff20e3wi" path="res://assets/Character/Robot_run_spritesheet.png" id="2_jfppk"]
 [ext_resource type="Texture2D" uid="uid://dpcaattuwb7rg" path="res://assets/Character/light.png" id="3_64u3g"]
+[ext_resource type="PackedScene" uid="uid://ckk2xm5ge81dj" path="res://scenes/Weapons/Bat.tscn" id="4_q6jpi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v3d0l"]
 radius = 4.12311
@@ -26,6 +27,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [12, 13, 14, 15, 16, 17, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeMarker:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.566667, 0.966667),
+"transitions": PackedFloat32Array(2.94781e-05, 1e-05, 1e-05, 1e-05, 1e-05),
+"update": 1,
+"values": [Vector2(-8, -4), Vector2(-8, -4), Vector2(-8, -3), Vector2(-7, -3), Vector2(-8, -4)]
 }
 
 [sub_resource type="Animation" id="Animation_autew"]
@@ -57,6 +70,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeMarker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-8, -4), Vector2(-8, -5), Vector2(-8, -5), Vector2(-8, -3), Vector2(-8, -3), Vector2(-8, -3), Vector2(-8, -4), Vector2(-8, -7), Vector2(-8, -7), Vector2(-8, -4), Vector2(-8, -1), Vector2(-8, -1)]
+}
 
 [sub_resource type="Animation" id="Animation_i0x3m"]
 resource_name = "run_right"
@@ -87,9 +112,37 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeMarker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.35, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(8, -3), Vector2(8, -7), Vector2(8, -7), Vector2(8, -5), Vector2(8, -4), Vector2(8, -6), Vector2(8, -7), Vector2(8, -6), Vector2(8, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_ivmmu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeleeMarker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-9, -3)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sfky7"]
 _data = {
+"RESET": SubResource("Animation_ivmmu"),
 "idle": SubResource("Animation_ofj16"),
 "run_left": SubResource("Animation_autew"),
 "run_right": SubResource("Animation_i0x3m")
@@ -105,10 +158,9 @@ script = ExtResource("1_1fefy")
 visibility_layer = 2
 position = Vector2(0, -11)
 texture = ExtResource("2_jfppk")
-flip_h = true
 hframes = 12
 vframes = 2
-frame = 12
+frame = 6
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -1)
@@ -138,6 +190,16 @@ debug_color = Color(0.964706, 0, 0.486275, 0.419608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+
+[node name="MeleeMarker" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-9, -3)
+
+[node name="Bat" parent="MeleeMarker" instance=ExtResource("4_q6jpi")]
+
+[node name="GunPivot" type="Marker2D" parent="."]
+
+[node name="GunMarker" type="Marker2D" parent="GunPivot"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
