@@ -5,7 +5,6 @@
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(579, 315)
 
 [node name="Character" parent="." instance=ExtResource("1_yy4tg")]
 top_level = true
