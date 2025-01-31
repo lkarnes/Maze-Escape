@@ -1,0 +1,181 @@
+[gd_scene load_steps=18 format=3 uid="uid://on600obf1soq"]
+
+[ext_resource type="Script" path="res://scenes/MainMenu/main_menu.gd" id="1_m0eg5"]
+[ext_resource type="Texture2D" uid="uid://dvrtvys3bxoh5" path="res://assets/Ui/Buttons_png.png" id="2_py8ka"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awom4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b40qf"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(5, 41, 23, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_14vnx"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(38, 40, 23, 16)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dccru"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0q6ch"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(5, 9, 23, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_snbo2"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(38, 8, 23, 16)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fbw0l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qfjnv"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(69, 9, 24, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pnxfx"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(102, 8, 24, 16)
+
+[sub_resource type="GDScript" id="GDScript_fgsrh"]
+script/source = "extends LineEdit
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_02xmi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eqvth"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(69, 41, 23, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c05lr"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(102, 40, 23, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7th3f"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(6, 106, 36, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57ojf"]
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(54, 105, 36, 16)
+
+[node name="mainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m0eg5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_py8ka")
+region_rect = Rect2(101, 73, 23, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="playButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_awom4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_b40qf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b40qf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_14vnx")
+
+[node name="hostButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dccru")
+theme_override_styles/hover = SubResource("StyleBoxTexture_0q6ch")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0q6ch")
+theme_override_styles/normal = SubResource("StyleBoxTexture_snbo2")
+
+[node name="joinButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fbw0l")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qfjnv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qfjnv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pnxfx")
+
+[node name="LobbyID" type="LineEdit" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+script = SubResource("GDScript_fgsrh")
+
+[node name="exitButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_02xmi")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eqvth")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eqvth")
+theme_override_styles/normal = SubResource("StyleBoxTexture_c05lr")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="optionsButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_awom4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7th3f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7th3f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_57ojf")
+
+[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/hostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/joinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/exitButton" to="." method="_on_exit_button_pressed"]
