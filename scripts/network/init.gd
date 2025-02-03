@@ -7,8 +7,10 @@ func _init():
 	OS.set_environment("SteamGameID", str(480))
 
 func _ready() -> void:
-	var initialize_response: Dictionary = Steam.steamInitEx( true, 480 )
-	print("Did Steam initialize?: %s " % initialize_response)
+	var INIT: Dictionary = Steam.steamInitEx( true, 480 )
+	print("Did Steam initialize?: %s " % INIT)
+	if INIT['status'] != 1:
+		print('Failed to initialize Steam. ' + str(INIT['verbal']) + ' Shutting down...')
 
 	steam_id = Steam.getSteamID()
 	print("ID: ", steam_id)
