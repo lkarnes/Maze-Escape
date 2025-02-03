@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx4gjgqbbl7yi"]
+
+[ext_resource type="Script" path="res://scenes/Weapons/Pistol/bullet.gd" id="1_cgclt"]
+[ext_resource type="Texture2D" uid="uid://bi7bcyrqyn5d3" path="res://assets/Weapons/projectiles.png" id="1_trp33"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6x00g"]
+size = Vector2(4, 3)
+
+[node name="Bullet" type="Area2D"]
+top_level = true
+position = Vector2(2, 0)
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_cgclt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_trp33")
+hframes = 4
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_6x00g")

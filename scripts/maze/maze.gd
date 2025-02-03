@@ -73,7 +73,6 @@ func generate_maze(w, h):
 
 func carve_path_recursive_dfs(current_coords: Vector2i, stack, maze_grid, rollback_dir):
 	if rollback_dir:
-		print(current_coords);
 		maze_grid[current_coords.y][current_coords.x][rollback_dir] = 0;
 	var current = maze_grid[current_coords.y][current_coords.x]
 	if current["visited"] && stack.size() > 0:
