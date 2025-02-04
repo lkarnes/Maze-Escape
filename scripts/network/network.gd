@@ -12,13 +12,16 @@ func _ready():
 	Steam.lobby_joined.connect(_on_lobby_joined)
 	Steam.p2p_session_request.connect(_on_p2p_session_request)
 
+
 func _process(delta):
 	if lobby_id > 0:
 		read_all_p2p_packets()
 
+
 func create_lobby():
 	if lobby_id == 0:
 		Steam.createLobby(Steam.LOBBY_TYPE_PUBLIC, LOBBY_NUMBERS_MAX)
+
 
 func _on_lobby_created(connect: int, this_lobby_id: int):
 	if connect == 1:
@@ -32,8 +35,10 @@ func _on_lobby_created(connect: int, this_lobby_id: int):
 	var set_relay: bool = Steam.allowP2PPacketRelay(true)
 	print('SET RELAY')
 	
+	
 func join_lobby(this_lobby_id: int):
 	Steam.joinLobby(this_lobby_id)
+	
 	
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int):
 	print('JOINING LOBBY')
@@ -42,6 +47,9 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		
 		get_lobby_members()
 		make_p2p_handshake()
+		var lobbyOwnerId := Steam.getLobbyOwner(this_lobby_id)
+		NetworkSetup.peer.create_client(lobbyOwnerId, 0)
+		
 		
 func get_lobby_members():
 	print('GETTING LOBBY MEMBERS!')
@@ -54,6 +62,7 @@ func get_lobby_members():
 		print('MEMBER: ', member_steam_name)
 		
 		lobby_members.append({"steam_id": member_steam_id, "steam_name": member_steam_name})
+		
 		
 func send_p2p_packet(this_target: int, packet_data: Dictionary, send_type: int = 0):
 	var channel: int = 0
@@ -70,17 +79,20 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, send_type: int =
 	else:
 		Steam.sendP2PPacket(this_target, this_data, send_type, channel)
 
+
 func make_p2p_handshake():
 	print('ATTEMPTING HANDSHAKE...')
 	send_p2p_packet(0, {"message": "handshake", "steam_id": NetworkSetup.steam_id, "username": NetworkSetup.steam_username})
 	print('FINISHED HANDSHAKE!')
 			
 
+
 func _on_p2p_session_request(remote_id: int):
 	var this_requestor: String = Steam.getFriendPersonaName(remote_id)
 	print('REQUESTOR: ', this_requestor)
 	
 	Steam.acceptP2PSessionWithUser(remote_id)
+
 
 func read_all_p2p_packets(read_count: int = 0):
 	if read_count > PACKET_READ_LIMIT:
@@ -106,3 +118,4 @@ func read_p2p_packet():
 				"handshake":
 					print("PLAYER: ", readable_data["username"], " HAS JOINED!!!")
 					get_lobby_members()
+					
