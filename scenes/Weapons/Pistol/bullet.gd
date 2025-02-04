@@ -1,12 +1,9 @@
 extends Area2D
 
-
 func _physics_process(delta):
-	const SPEED = 400;
-	const RANGE = 1800;
+	const SPEED = 600;
 	var direction = Vector2.RIGHT.rotated(rotation)
 	position += direction * SPEED * delta;
-
 
 func _on_body_entered(body):
 	queue_free();

@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var grass: TileMapLayer = %Grass;
 var maze_arr;
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	# make sure the size is divisible by 4
 	if !maze_arr:
 		maze_arr = Maze.generate_maze(64, 64);

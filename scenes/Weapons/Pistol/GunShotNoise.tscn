@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7co4est35r36"]
+
+[ext_resource type="AudioStream" uid="uid://dhphjkwkgju3w" path="res://assets/audio/9mm_shot.wav" id="1_wmtc4"]
+[ext_resource type="Script" path="res://scenes/Weapons/Pistol/gun_shot_noise.gd" id="2_dl0b8"]
+
+[node name="GunShotNoise" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_wmtc4")
+volume_db = -20.0
+max_distance = 300.0
+script = ExtResource("2_dl0b8")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
