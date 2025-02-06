@@ -6,6 +6,7 @@ const LOBBY_NUMBERS_MAX: int = 10
 var is_host: bool = false
 var lobby_id: int = 0
 var lobby_members: Array = []
+var peer: MultiplayerPeer
 
 func _ready():
 	Steam.lobby_created.connect(_on_lobby_created)
@@ -33,7 +34,10 @@ func _on_lobby_created(connect: int, this_lobby_id: int):
 	
 	print('CREATED LOBBY: ', lobby_id)
 	var set_relay: bool = Steam.allowP2PPacketRelay(true)
-	print('SET RELAY')
+	
+	peer = SteamMultiplayerPeer.new()
+	peer.create_host(0)
+	multiplayer.multiplayer_peer = peer
 	
 	
 func join_lobby(this_lobby_id: int):
