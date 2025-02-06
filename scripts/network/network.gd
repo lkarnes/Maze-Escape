@@ -52,7 +52,7 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		get_lobby_members()
 		make_p2p_handshake()
 		var lobbyOwnerId := Steam.getLobbyOwner(this_lobby_id)
-		NetworkSetup.peer.create_client(lobbyOwnerId, 0)
+		NetworkImpl.peer.create_client(lobbyOwnerId, 0)
 		
 		
 func get_lobby_members():
