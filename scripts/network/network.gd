@@ -37,7 +37,6 @@ func _on_lobby_created(connect: int, this_lobby_id: int):
 	
 	peer = SteamMultiplayerPeer.new()
 	peer.create_host(0)
-	multiplayer.multiplayer_peer = peer
 	
 	
 func join_lobby(this_lobby_id: int):
@@ -51,8 +50,10 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		
 		get_lobby_members()
 		make_p2p_handshake()
+		
 		var lobbyOwnerId := Steam.getLobbyOwner(this_lobby_id)
-		NetworkImpl.peer.create_client(lobbyOwnerId, 0)
+		multiplayer.multiplayer_peer = peer
+		peer.create_client(lobbyOwnerId, 0)
 		
 		
 func get_lobby_members():
