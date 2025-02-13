@@ -1,11 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=11 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="Texture2D" uid="uid://bav44ff20e3wi" path="res://assets/Character/Robot_run_spritesheet.png" id="2_jfppk"]
 [ext_resource type="Texture2D" uid="uid://dpcaattuwb7rg" path="res://assets/Character/light.png" id="3_64u3g"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2ce3r"]
-light_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v3d0l"]
 radius = 4.12311
@@ -140,33 +137,31 @@ _data = {
 
 [node name="Character" type="CharacterBody2D"]
 light_mask = 0
-position = Vector2(0, -13)
+z_index = 1
 collision_mask = 2
 script = ExtResource("1_1fefy")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 2
+position = Vector2(0, -7)
+texture = ExtResource("2_jfppk")
+hframes = 12
+vframes = 2
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, 3)
+energy = 0.5
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
 texture = ExtResource("3_64u3g")
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
-visible = false
-visibility_layer = 0
 position = Vector2(0, 3)
-energy = 0.4
+energy = 0.5
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
 texture = ExtResource("3_64u3g")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-light_mask = 0
-material = SubResource("CanvasItemMaterial_2ce3r")
-position = Vector2(0, -7)
-texture = ExtResource("2_jfppk")
-hframes = 12
-vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
