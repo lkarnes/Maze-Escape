@@ -89,9 +89,9 @@ func _add_player_to_game(id: int):
 	
 	var player_to_add = character_scene.instantiate()
 	#player_to_add.player_id = id
-	#player_to_add.name = str(id)
-	get_tree().change_scene_to_file("res://scenes/World/World.tscn")
-	add_child(player_to_add, true)
+	player_to_add.name = str(id)
+	World.spawn_players([player_to_add])
+	#get_tree().change_scene_to_file("res://scenes/World/World.tscn")
 
 func _del_player(id: int):
 	print('Player %s is too cowardly to face the MAZE!' % id)

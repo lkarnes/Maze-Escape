@@ -11,7 +11,7 @@ func _ready():
 		#maze_arr = Maze.generate_maze(maze_width, maze_height);
 		#print('maze 1:', maze_arr)
 		maze_arr = Maze.generate_maze_2(maze_width, maze_height);
-		print('maze 2:', maze_arr)
+		# print('maze 2:', maze_arr)
 		
 		for y in range(maze_height * 3):
 			for x in range(maze_width * 3):

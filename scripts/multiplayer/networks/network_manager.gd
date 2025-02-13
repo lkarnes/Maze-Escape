@@ -2,15 +2,15 @@ extends Node
 
 @export var _players_spawn_node: Node2D
 
-var lobby_scene := preload('res://scenes/Lobby/Lobby.tscn')
-var lobby
+var world_scene := preload('res://scenes/World/World.tscn')
+var world
 
 func _build_multiplayer_network():
-	if not lobby:
+	if not world:
 		print('Building network...')
-		lobby = lobby_scene.instantiate()
-		lobby._players_spawn_node = _players_spawn_node
-		add_child(lobby)
+		world = world_scene.instantiate()
+		#world._players_spawn_node = _players_spawn_node
+		#add_child(world)
 		MultiplayerManager.multiplayer_mode_enabled = true
 	
 
