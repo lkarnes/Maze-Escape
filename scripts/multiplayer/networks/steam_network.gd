@@ -34,7 +34,20 @@ func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int)
 			print('Connecting client to socket...')
 			connect_socket(id) 
 	else:
-		pass
+		# Get the failure reason
+		var FAIL_REASON: String
+		match response:
+			2:  FAIL_REASON = "This lobby no longer exists."
+			3:  FAIL_REASON = "You don't have permission to join this lobby."
+			4:  FAIL_REASON = "The lobby is now full."
+			5:  FAIL_REASON = "Uh... something unexpected happened!"
+			6:  FAIL_REASON = "You are banned from this lobby."
+			7:  FAIL_REASON = "You cannot join due to having a limited account."
+			8:  FAIL_REASON = "This lobby is locked or disabled."
+			9:  FAIL_REASON = "This lobby is community locked."
+			10: FAIL_REASON = "A user in the lobby has blocked you from joining."
+			11: FAIL_REASON = "A user you have blocked is in the lobby."
+		print(FAIL_REASON)
 		
 func connect_socket(steam_id: int):
 	var res = multiplayer_peer.create_client(steam_id, 0)
