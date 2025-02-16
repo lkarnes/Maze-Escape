@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 var player_speed: int = 150;
 enum weapon_types {GUN, BAT}
+
+signal trigger_respawn;
+
+@export var trophies: int = 0;
+
 @export var selected_weapon: weapon_types = weapon_types.GUN;
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 @onready var gun_pivot: Marker2D = %GunPivot;
@@ -72,4 +77,6 @@ func update_gun_pivot_rotation():
 			gun.flip('left');
 		else:
 			gun.flip('right');
-	
+
+func _on_health_bar_no_hearts_left() -> void:
+	trigger_respawn.emit(self);
