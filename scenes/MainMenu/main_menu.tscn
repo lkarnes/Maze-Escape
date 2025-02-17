@@ -1,72 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://on600obf1soq"]
+[gd_scene load_steps=5 format=3 uid="uid://bixoc0eh7q0s4"]
 
+[ext_resource type="Theme" uid="uid://d0xbo7kpqf3i5" path="res://assets/Themes/button_theme.tres" id="1_k2wp4"]
 [ext_resource type="Script" path="res://scenes/MainMenu/main_menu.gd" id="1_m0eg5"]
-[ext_resource type="Texture2D" uid="uid://dvrtvys3bxoh5" path="res://assets/Ui/Buttons_png.png" id="2_py8ka"]
+[ext_resource type="AudioStream" uid="uid://chviujmca8e7h" path="res://assets/Music/Corridors of Dread-1.mp3" id="3_hjmsq"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awom4"]
+[sub_resource type="LabelSettings" id="LabelSettings_m617b"]
+font_size = 26
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b40qf"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(5, 41, 23, 13)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_14vnx"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(38, 40, 23, 16)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dccru"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0q6ch"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(5, 9, 23, 13)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_snbo2"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(38, 8, 23, 16)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fbw0l"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qfjnv"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(69, 9, 24, 13)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pnxfx"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(102, 8, 24, 16)
-
-[sub_resource type="GDScript" id="GDScript_fgsrh"]
-script/source = "extends LineEdit
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_02xmi"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eqvth"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(69, 41, 23, 13)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c05lr"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(102, 40, 23, 16)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7th3f"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(6, 106, 36, 13)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57ojf"]
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(54, 105, 36, 16)
-
-[node name="mainMenu" type="Control"]
-layout_mode = 3
+[node name="MainMenu" type="CenterContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,108 +15,48 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m0eg5")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
-texture_filter = 1
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(350, 350)
 layout_mode = 2
-texture = ExtResource("2_py8ka")
-region_rect = Rect2(101, 73, 23, 16)
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 4
-metadata/_edit_use_anchors_ = true
+theme = ExtResource("1_k2wp4")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 75
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 25
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer"]
+[node name="MenuContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-theme_override_constants/separation = 25
+theme_override_constants/separation = 40
 
-[node name="playButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(150, 75)
+[node name="Label" type="Label" parent="PanelContainer/MenuContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_awom4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_b40qf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_b40qf")
-theme_override_styles/normal = SubResource("StyleBoxTexture_14vnx")
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_m617b")
+horizontal_alignment = 1
 
-[node name="hostButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(150, 75)
+[node name="Host" type="Button" parent="PanelContainer/MenuContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_dccru")
-theme_override_styles/hover = SubResource("StyleBoxTexture_0q6ch")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_0q6ch")
-theme_override_styles/normal = SubResource("StyleBoxTexture_snbo2")
+text = "Host
+"
 
-[node name="joinButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(150, 75)
+[node name="Join" type="Button" parent="PanelContainer/MenuContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_fbw0l")
-theme_override_styles/hover = SubResource("StyleBoxTexture_qfjnv")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_qfjnv")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pnxfx")
+text = "Join
+"
 
-[node name="LobbyID" type="LineEdit" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="PanelContainer/MenuContainer"]
 layout_mode = 2
-script = SubResource("GDScript_fgsrh")
+text = "Settings
+"
 
-[node name="exitButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(150, 75)
+[node name="Quit" type="Button" parent="PanelContainer/MenuContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_02xmi")
-theme_override_styles/hover = SubResource("StyleBoxTexture_eqvth")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_eqvth")
-theme_override_styles/normal = SubResource("StyleBoxTexture_c05lr")
+text = "Quit
+"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+[node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hjmsq")
+volume_db = -26.0
+autoplay = true
+bus = &"Music"
 
-[node name="optionsButton" type="Button" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2"]
-texture_filter = 1
-custom_minimum_size = Vector2(200, 75)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_awom4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_7th3f")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7th3f")
-theme_override_styles/normal = SubResource("StyleBoxTexture_57ojf")
-
-[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/hostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/joinButton" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MenuContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="PanelContainer/MenuContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="PanelContainer/MenuContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="PanelContainer/MenuContainer/Quit" to="." method="_on_quit_pressed"]
