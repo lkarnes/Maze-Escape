@@ -12,6 +12,7 @@ func _physics_process(delta: float) -> void:
 	
 func spawn_players(players):
 	for player in players:
-		print(maze)
-		player.global_position = maze.find_walkable_position();
+		#print(maze)
+		player.global_position = Maze1.find_walkable_position();
 		add_child(player);
+		print('spawned player successfully %s' % player)
