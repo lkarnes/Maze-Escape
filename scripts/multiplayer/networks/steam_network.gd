@@ -1,6 +1,9 @@
 extends Node
 
-var character_scene = preload('res://scenes/Character/Character.tscn')
+@onready var character_scene = preload('res://scenes/Character/Character.tscn')
+@onready var world = preload("res://scenes/World/World.tscn");
+var world_instance
+@onready var world_script = preload("res://scenes/World/world.gd");
 var multiplayer_peer: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 var _players_spawn_node
 var _hosted_lobby_id = 0
@@ -8,6 +11,8 @@ var _hosted_lobby_id = 0
 const LOBBY_NAME = "Maze Escape"
 
 func _ready():
+	#if not world_instance:
+		#world_instance = world.instantiate()
 	SteamManager.initialize_steam()
 	multiplayer.peer_connected.connect(_add_player_to_game)
 	multiplayer.peer_disconnected.connect(_del_player)
@@ -27,11 +32,13 @@ func join_as_client(lobby_id):
 func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int):
 	print('On lobby joined')
 	if response == 1:
+		print('SUCCESSFUL CONNECTION TO LOBBY!')
 		var id = Steam.getLobbyOwner(lobby)
 		if id != Steam.getSteamID():
 			print('Connecting client to socket...')
 			connect_socket(id) 
 	else:
+		print('FAILED CONNECTION TO LOBBY!')
 		# Get the failure reason
 		var FAIL_REASON: String
 		match response:
@@ -85,13 +92,27 @@ func list_lobbies():
 	Steam.requestLobbyList()
 
 func _add_player_to_game(id: int):
-	print('Player %s is ready to face the MAZE!', % id)
-	
+	print("Adding player to game...")
+
+	if world_instance == null:
+		print("Instantiating world...")
+		world_instance = world.instantiate()
+		get_tree().root.add_child(world_instance)
+
+	# Ensure maze_instance exists before calling spawn_player()
+	await get_tree().process_frame  # Wait for scene initialization
+	if world_instance.maze_instance == null:
+		push_error("ERROR: maze_instance is still NULL in world_instance!")
+
 	var player_to_add = character_scene.instantiate()
-	#player_to_add.player_id = id
 	player_to_add.name = str(id)
-	World.spawn_players([player_to_add])
-	#get_tree().change_scene_to_file("res://scenes/World/World.tscn")
+
+	if world_instance.has_method("spawn_player"):
+		world_instance.spawn_player(player_to_add)
+	else:
+		push_error("ERROR: spawn_player() not found in world_instance!")
+
+
 
 func _del_player(id: int):
 	print('Player %s is too cowardly to face the MAZE!' % id)

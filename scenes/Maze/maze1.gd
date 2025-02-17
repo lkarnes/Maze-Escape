@@ -4,8 +4,23 @@ extends Node2D
 @export var maze_width: int = 80;
 @onready var grass: TileMapLayer = %Grass;
 @onready var walls: TileMapLayer = %Walls;
+
 var maze_arr;
 func _ready():
+	print("Maze1 scene tree structure:")
+	for child in get_children():
+		print("Child node:", child.name, " Type:", child.get_class())
+
+	grass = get_node_or_null("Grass")
+	walls = get_node_or_null("Walls")
+
+	print("Grass node:", grass)
+	print("Walls node:", walls)
+
+	if grass == null or walls == null:
+		push_error("Grass or Walls not found in Maze1 scene!")
+		return
+		
 	# make sure the size is divisible by 4
 	if !maze_arr:
 		#maze_arr = Maze.generate_maze(maze_width, maze_height);
