@@ -36,7 +36,7 @@ func _physics_process(_delta):
 	update_gun_pivot_rotation();
 
 func handle_movement():
-	var direction: Vector2 = Input.get_vector("left", "right", "up", "down");
+	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
 	velocity = direction * player_speed;
 	if direction == Vector2.ZERO:
 		animations.play('idle');
@@ -59,7 +59,7 @@ func handle_attacks():
 	if gun_marker.get_children().size() > 0:
 		gun = gun_marker.get_child(0);
 
-	if Input.is_action_just_pressed('attack'):
+	if Input.is_action_just_pressed('attack_move'):
 		if meelee_weapon:
 			meelee_weapon.swing(orientation);
 		if gun:
