@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwwnu8sjv0f7"]
 
-[ext_resource type="Script" path="res://scenes/World/world.gd" id="1_lc7u6"]
-[ext_resource type="PackedScene" uid="uid://b1qku1upu43gg" path="res://scenes/Character/Character.tscn" id="1_yy4tg"]
+[ext_resource type="Script" path="res://scenes/World/world.gd" id="1_hihsg"]
+[ext_resource type="PackedScene" uid="uid://djs61chrsprsd" path="res://scenes/Trophy/Trophy.tscn" id="3_o2nbj"]
 [ext_resource type="PackedScene" uid="uid://wdgkr6qdlw3v" path="res://scenes/Maze/Maze.tscn" id="3_wipgs"]
 
 [node name="World" type="Node2D"]
@@ -13,3 +13,7 @@ top_level = true
 position = Vector2(36, 44)
 
 [node name="Maze" parent="." instance=ExtResource("3_wipgs")]
+unique_name_in_owner = true
+
+[node name="Trophy" parent="." instance=ExtResource("3_o2nbj")]
+position = Vector2(60, 61)
