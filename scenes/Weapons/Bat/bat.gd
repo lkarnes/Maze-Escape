@@ -6,17 +6,18 @@ extends Area2D
 func swing(direction):
 	var aim_direction = get_global_mouse_position() - global_position
 	var aim_rotation = atan2(aim_direction.y, aim_direction.x)
-	print(aim_rotation)
+	if direction == 'left': 
+		aim_rotation = atan2(-aim_direction.y, -aim_direction.x);
 
 	# Set rotation of parent node (usually player or weapon)
 	get_parent().rotation = aim_rotation
 
 	# Play swing animation (assuming "swing_right" is a valid animation)
-	animations.play('swing_right')
+	animations.play('swing_' + direction)
 	
 
 func set_direction(direction):
-	if animations.current_animation != 'idle_' + direction and animations.current_animation != 'swing_right': 
+	if animations.current_animation != 'idle_' + direction and animations.current_animation != 'swing_' + direction: 
 		animations.play('idle_' + direction);
 
 

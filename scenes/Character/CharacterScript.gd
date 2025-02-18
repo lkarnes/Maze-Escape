@@ -7,7 +7,7 @@ signal trigger_respawn;
 
 @export var trophies: int = 0;
 
-@export var selected_weapon: weapon_types = weapon_types.BAT;
+@export var selected_weapon: weapon_types = weapon_types.GUN;
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 @onready var gun_pivot: Marker2D = %GunPivot;
 @onready var gun_marker: Marker2D = %GunMarker;
@@ -17,6 +17,9 @@ signal trigger_respawn;
 	"GUN": preload("res://scenes/Weapons/Pistol/Pistol.tscn")
 };
 var orientation = 'right';
+
+var meelee_weapon;
+var gun;
 
 func _ready():
 	var keys = get_action_keys("down")
@@ -38,22 +41,30 @@ func _physics_process(_delta):
 func handle_movement():
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
 	velocity = direction * player_speed;
+	var direction_to_mouse = global_position - get_global_mouse_position();
 	if direction == Vector2.ZERO:
-		animations.play('idle');
-	elif (direction.x > 0):
+		if (direction_to_mouse.x < 0):
+			animations.play('idle-right');
+			orientation = 'right';
+		else:
+			animations.play('idle-left');
+			orientation = 'left';
+	elif (direction_to_mouse.x < 0):
 		animations.play('run_right');
 		orientation = 'right';
-	elif (direction.x < 0):
+	elif (direction_to_mouse.x > 0):
 		animations.play('run_left');
 		orientation = 'left';
 	elif animations.current_animation == 'idle':
 		animations.play('run_left');
 		orientation = 'left';
+		
+	
+	if meelee_weapon:
+		meelee_weapon.set_direction(orientation);
 	move_and_slide();
 
 func handle_attacks():
-	var meelee_weapon;
-	var gun;
 	if melee_marker.get_children().size() > 0:
 		meelee_weapon = melee_marker.get_child(0);
 	if gun_marker.get_children().size() > 0:
@@ -64,9 +75,6 @@ func handle_attacks():
 			meelee_weapon.swing(orientation);
 		if gun:
 			gun.shoot();
-	else:
-		if meelee_weapon:
-			meelee_weapon.set_direction(orientation);
 		
 		
 func update_gun_pivot_rotation():
