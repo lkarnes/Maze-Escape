@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=13 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
@@ -152,9 +152,7 @@ offset_bottom = -28.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, 3)
-visible=false
-visibility_layer = 0 
-energy = 0.4
+energy = 0.6
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 2
@@ -163,7 +161,7 @@ texture = ExtResource("3_64u3g")
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 visibility_layer = 0
 position = Vector2(0, 3)
-energy = 0.5
+energy = 0.4
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
 texture = ExtResource("3_64u3g")

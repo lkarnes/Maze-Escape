@@ -1,12 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwwnu8sjv0f7"]
+[gd_scene load_steps=3 format=3 uid="uid://dwwnu8sjv0f7"]
 
-[ext_resource type="Script" path="res://scenes/world.gd" id="1_hihsg"]
 [ext_resource type="PackedScene" uid="uid://djs61chrsprsd" path="res://scenes/Trophy/Trophy.tscn" id="3_o2nbj"]
 [ext_resource type="PackedScene" uid="uid://wdgkr6qdlw3v" path="res://scenes/Maze/Maze.tscn" id="3_wipgs"]
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_hihsg")
 
 [node name="Maze" parent="." instance=ExtResource("3_wipgs")]
 unique_name_in_owner = true
