@@ -10,7 +10,7 @@ func _ready():
 		create_heart();
 	
 func lose_heart():
-	if hearts > 0:
+	if hearts > 1:
 		var heart_nodes = get_children();
 		heart_nodes[hearts - 1].queue_free();
 		create_heart(false);

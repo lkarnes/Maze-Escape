@@ -200,7 +200,7 @@ unique_name_in_owner = true
 
 [node name="GunMarker" type="Marker2D" parent="GunPivot"]
 unique_name_in_owner = true
-position = Vector2(12, 0)
+position = Vector2(4, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
