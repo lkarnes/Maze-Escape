@@ -21,7 +21,7 @@ polygon = PackedVector2Array(8, -8, 8, 0, 0, 0, 0, 8, -8, 8, -8, -8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qmt6u"]
 polygon = PackedVector2Array(-8, -8, 0, -8, 0, 0, 8, 0, 8, 8, -8, 8)
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_up447"]
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3dp5e"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_35xqs"]
@@ -293,7 +293,7 @@ texture = ExtResource("1_s67mj")
 3:2/0 = 0
 3:2/0/terrain_set = 0
 3:2/0/terrain = 1
-3:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_up447")
+3:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_3dp5e")
 3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:2/0/terrains_peering_bit/right_side = 1
 3:2/0/terrains_peering_bit/bottom_right_corner = 1
@@ -330,4 +330,5 @@ sources/0 = SubResource("TileSetAtlasSource_cte5f")
 sources/1 = SubResource("TileSetAtlasSource_f20gh")
 
 [node name="Grass" type="TileMapLayer"]
+z_index = -1
 tile_set = SubResource("TileSet_5dknu")

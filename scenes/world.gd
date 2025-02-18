@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var maze_scene = preload("res://scenes/Maze/Maze.tscn")  # Load the scene
+@onready var PLAYER = preload("res://scenes/Character/Character.tscn");
 var maze_instance  # Store the instance
 var player_spawned = false;
 
@@ -21,8 +22,15 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if !player_spawned:
 		player_spawned = true;
-		#spawn_players([true])
-		
+		var player = PLAYER.instantiate();
+		player.global_position = maze_instance.find_walkable_position();
+		player.trigger_respawn.connect(_on_trigger_respawn);
+		add_child(player);
+
+func _on_trigger_respawn(character):
+	character.queue_free();
+	await get_tree().create_timer(2.0).timeout;
+	player_spawned = false;
 	
 func spawn_player(player):
 	print('FOOBAR!')

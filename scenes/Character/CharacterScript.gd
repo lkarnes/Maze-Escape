@@ -2,7 +2,12 @@ extends CharacterBody2D
 
 var player_speed: int = 150;
 enum weapon_types {GUN, BAT}
-@export var selected_weapon: weapon_types = weapon_types.GUN;
+
+signal trigger_respawn;
+
+@export var trophies: int = 0;
+
+@export var selected_weapon: weapon_types = weapon_types.BAT;
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 @onready var gun_pivot: Marker2D = %GunPivot;
 @onready var gun_marker: Marker2D = %GunMarker;
@@ -14,6 +19,9 @@ enum weapon_types {GUN, BAT}
 var orientation = 'right';
 
 func _ready():
+	var keys = get_action_keys("down")
+	print(keys)
+	print(keys);
 	match selected_weapon:
 		weapon_types.GUN:
 			var gun = weapon_obj["GUN"].instantiate();
@@ -28,7 +36,7 @@ func _physics_process(_delta):
 	update_gun_pivot_rotation();
 
 func handle_movement():
-	var direction: Vector2 = Input.get_vector("left", "right", "up", "down");
+	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
 	velocity = direction * player_speed;
 	if direction == Vector2.ZERO:
 		animations.play('idle');
@@ -51,7 +59,7 @@ func handle_attacks():
 	if gun_marker.get_children().size() > 0:
 		gun = gun_marker.get_child(0);
 
-	if Input.is_action_just_pressed('attack'):
+	if Input.is_action_just_pressed('attack_move'):
 		if meelee_weapon:
 			meelee_weapon.swing(orientation);
 		if gun:
@@ -72,4 +80,19 @@ func update_gun_pivot_rotation():
 			gun.flip('left');
 		else:
 			gun.flip('right');
+
+func _on_health_bar_no_hearts_left() -> void:
+	trigger_respawn.emit(self);
 	
+	
+func get_action_keys(action_name: String) -> Array:
+	var keys = []
+	if InputMap.has_action(action_name):
+		for event in InputMap.action_get_events(action_name):
+			if event is InputEventKey:
+				keys.append(OS.get_keycode_string(event.physical_keycode)) # Use physical_keycode
+			elif event is InputEventJoypadButton:
+				keys.append("Joystick Button " + str(event.button_index))
+			elif event is InputEventMouseButton:
+				keys.append("Mouse Button " + str(event.button_index))
+	return keys

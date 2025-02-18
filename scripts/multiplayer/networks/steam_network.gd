@@ -3,7 +3,6 @@ extends Node
 @onready var character_scene = preload('res://scenes/Character/Character.tscn')
 @onready var world = preload("res://scenes/World/World.tscn");
 var world_instance
-@onready var world_script = preload("res://scenes/World/world.gd");
 var multiplayer_peer: SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 var _players_spawn_node
 var _hosted_lobby_id = 0
@@ -11,8 +10,6 @@ var _hosted_lobby_id = 0
 const LOBBY_NAME = "Maze Escape"
 
 func _ready():
-	#if not world_instance:
-		#world_instance = world.instantiate()
 	SteamManager.initialize_steam()
 	multiplayer.peer_connected.connect(_add_player_to_game)
 	multiplayer.peer_disconnected.connect(_del_player)

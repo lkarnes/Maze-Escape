@@ -1,0 +1,71 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://d0xbo7kpqf3i5"]
+
+[ext_resource type="StyleBox" uid="uid://d0r527s3f3gfb" path="res://assets/Themes/panel_theme.tres" id="1_hss3q"]
+[ext_resource type="FontFile" uid="uid://cs31g3vohaerk" path="res://assets/Fonts/SupplyCenter-0W9nz.ttf" id="1_xt0db"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g43yv"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.222928, 0.707924, 0.690011, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 2.0
+expand_margin_right = 10.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cn4jt"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.160832, 0.547012, 0.53285, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 2.0
+expand_margin_right = 10.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfbg3"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.103351, 0.388426, 0.37799, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 2.0
+expand_margin_right = 10.0
+expand_margin_bottom = 2.0
+
+[resource]
+default_font = ExtResource("1_xt0db")
+Button/font_sizes/font_size = 22
+Button/styles/focus = SubResource("StyleBoxFlat_g43yv")
+Button/styles/hover = SubResource("StyleBoxFlat_g43yv")
+Button/styles/normal = SubResource("StyleBoxFlat_cn4jt")
+Button/styles/pressed = SubResource("StyleBoxFlat_xfbg3")
+Label/font_sizes/font_size = 22
+PanelContainer/styles/panel = ExtResource("1_hss3q")
