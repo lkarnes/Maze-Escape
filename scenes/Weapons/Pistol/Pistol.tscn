@@ -314,9 +314,9 @@ one_shot = true
 [node name="CooldownProgress" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 offset_left = -5.0
-offset_top = 5.0
+offset_top = -6.0
 offset_right = 8.0
-offset_bottom = 6.0
+offset_bottom = -5.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_lk18i")
 theme_override_styles/fill = SubResource("StyleBoxTexture_nixe3")
 value = 10.0

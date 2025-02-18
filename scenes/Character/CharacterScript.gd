@@ -23,8 +23,6 @@ var gun;
 
 func _ready():
 	var keys = get_action_keys("down")
-	print(keys)
-	print(keys);
 	match selected_weapon:
 		weapon_types.GUN:
 			var gun = weapon_obj["GUN"].instantiate();
