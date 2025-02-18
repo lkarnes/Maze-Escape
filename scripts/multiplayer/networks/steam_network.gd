@@ -36,7 +36,7 @@ func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int)
 		var id = Steam.getLobbyOwner(lobby)
 		if id != Steam.getSteamID():
 			print('Connecting client to socket...')
-			connect_socket(id) 
+			connect_socket(id)
 	else:
 		print('FAILED CONNECTION TO LOBBY!')
 		# Get the failure reason
@@ -99,6 +99,11 @@ func list_lobbies():
 func _add_player_to_game(id: int):
 	print("Adding player to game...")
 
+	if world_instance == null:
+		print("Instantiating world...")
+		world_instance = world.instantiate()
+		get_tree().root.add_child(world_instance)
+
 	# Ensure maze_instance exists before calling spawn_player()
 	await get_tree().process_frame  # Wait for scene initialization
 	if world_instance.maze_instance == null:
@@ -111,6 +116,15 @@ func _add_player_to_game(id: int):
 		world_instance.spawn_player(player_to_add)
 	else:
 		push_error("ERROR: spawn_player() not found in world_instance!")
+
+	# Remove the Lobby scene from the scene tree
+	var lobby_scene = get_tree().root.find_child("Lobby", true, false)
+	if lobby_scene:
+		print("Removing lobby scene: ", lobby_scene.name)
+		lobby_scene.queue_free()
+	else:
+		push_warning("WARNING: Lobby scene not found, could not remove it.")
+
 
 
 
