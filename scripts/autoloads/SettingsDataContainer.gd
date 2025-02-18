@@ -57,7 +57,6 @@ func get_sfx_volume() -> float:
 	return sfx_volume
 
 
-
 func on_window_mode_selected(index : int) -> void:
 	window_mode_index = index
 
