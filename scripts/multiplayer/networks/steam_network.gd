@@ -77,6 +77,11 @@ func _create_host():
 	print('Creating host...')
 	var res = multiplayer_peer.create_host(0)
 	if res == OK:
+		if world_instance == null:
+			print("Instantiating world...")
+			world_instance = world.instantiate()
+			get_tree().root.add_child(world_instance)
+			
 		multiplayer.set_multiplayer_peer(multiplayer_peer)
 		
 		if not OS.has_feature('dedicated_server'):
@@ -93,11 +98,6 @@ func list_lobbies():
 
 func _add_player_to_game(id: int):
 	print("Adding player to game...")
-
-	if world_instance == null:
-		print("Instantiating world...")
-		world_instance = world.instantiate()
-		get_tree().root.add_child(world_instance)
 
 	# Ensure maze_instance exists before calling spawn_player()
 	await get_tree().process_frame  # Wait for scene initialization

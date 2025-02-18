@@ -12,7 +12,8 @@ func _build_multiplayer_network():
 		#world._players_spawn_node = _players_spawn_node
 		#add_child(world)
 		MultiplayerManager.multiplayer_mode_enabled = true
-	
+		print('Building built successfully!')
+		
 
 func become_host():
 	_build_multiplayer_network()
