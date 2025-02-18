@@ -10,15 +10,12 @@ func _ready():
 	load_settings_data()
 
 
-
-
 func on_settings_save(data : Dictionary) -> void:
 	var save_settigns_data_file = FileAccess.open_encrypted_with_pass(SETTINGS_SAVE_PATH, FileAccess.WRITE, "Amerity")
 	
 	var json_data_string = JSON.stringify(data)
 	
 	save_settigns_data_file.store_line(json_data_string)
-
 
 
 func load_settings_data() -> void:
