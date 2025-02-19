@@ -26,9 +26,6 @@ func build_maze():
 		for x in range(maze_arr[y].size()):
 			
 			if maze_arr[y][x] == 1:
-				grass.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(3,2))
-				grass.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
-				
 				if x + 1 < maze_arr[y].size() && maze_arr[y][x-1] == 1 && maze_arr[y][x+1] == 1:
 					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(2,0))
 				elif maze_arr[y][x-1] == 1:
@@ -37,26 +34,21 @@ func build_maze():
 				elif x + 1 < maze_arr[y].size() && maze_arr[y][x+1] == 1:
 					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(1,0))
 				else:
-					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
+					# check to see if its the end of that wall
+					if maze_arr[y + 1][x] == 1 && maze_arr[y - 1][x] == 1:
+						print(maze_arr[y + 1][x] == 1, maze_arr[y - 1][x] == 1)
+						walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(4,0))
+					else: 
+						walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
 				
-				# fill y gaps
+				# fill y gaps 
 				if y > 0 and maze_arr[y - 1][x] == 1:
-					grass.set_cell(Vector2i(x * 3,(y * 3) - 1), 0, Vector2i(3,2))
-					grass.set_cell(Vector2i(x * 3,(y * 3) - 2), 0, Vector2i(3,2))
-					walls.set_cell(Vector2i(x * 3,(y * 3) - 1), 0, Vector2i(0,0))
-					walls.set_cell(Vector2i(x * 3,(y * 3) - 2), 0, Vector2i(0,0))
-				if y + 1 < maze_arr.size() and maze_arr[y + 1][x] == 1:
-					grass.set_cell(Vector2i(x * 3,(y * 3) + 1), 0, Vector2i(3,2))
-					grass.set_cell(Vector2i(x * 3,(y * 3) + 2), 0, Vector2i(3,2))
-	#					# fill x gaps
+					walls.set_cell(Vector2i(x * 3,(y * 3) - 1), 0, Vector2i(4,0))
+					walls.set_cell(Vector2i(x * 3,(y * 3) - 2), 0, Vector2i(4,0))
+#				# fill x gaps
 				if x + 1 < maze_arr[y].size() and maze_arr[y][x + 1] == 1:
-					grass.set_cell(Vector2i((x * 3) + 1,y * 3), 0, Vector2i(3,2))
-					grass.set_cell(Vector2i((x * 3) + 2,y * 3), 0, Vector2i(3,2))
 					walls.set_cell(Vector2i((x * 3) + 1,y * 3), 0, Vector2i(2,0))
 					walls.set_cell(Vector2i((x * 3) + 2,y * 3), 0, Vector2i(2,0))
-				if x > 0 and maze_arr[y][x - 1] == 1:
-					grass.set_cell(Vector2i((x * 3 - 1),y * 3), 0, Vector2i(3,2))
-					grass.set_cell(Vector2i((x * 3 - 2),y * 3), 0, Vector2i(3,2))	
 					
 func find_walkable_position() -> Vector2i:
 	var position: Vector2i;

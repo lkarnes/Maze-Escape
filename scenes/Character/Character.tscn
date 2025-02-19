@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=15 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
-[ext_resource type="Texture2D" uid="uid://dpcaattuwb7rg" path="res://assets/Character/light.png" id="3_64u3g"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
 
 [sub_resource type="Gradient" id="Gradient_d3jsm"]
@@ -298,12 +297,12 @@ texture_scale = 0.5
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 visible = false
-visibility_layer = 0
-position = Vector2(0, 3)
-energy = 0.4
+position = Vector2(0, -7)
+energy = 0.5
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
-texture = ExtResource("3_64u3g")
+texture = SubResource("GradientTexture2D_kwa6d")
+texture_scale = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 0
