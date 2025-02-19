@@ -36,7 +36,6 @@ func build_maze():
 				else:
 					# check to see if its the end of that wall
 					if maze_arr[y + 1][x] == 1 && maze_arr[y - 1][x] == 1:
-						print(maze_arr[y + 1][x] == 1, maze_arr[y - 1][x] == 1)
 						walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(4,0))
 					else: 
 						walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
