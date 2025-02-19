@@ -160,6 +160,6 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_kkop2")
 
 [node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_1do51")
-volume_db = -60.0
+volume_db = -45.0
 autoplay = true
 bus = &"Music"

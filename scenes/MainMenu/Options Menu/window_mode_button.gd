@@ -22,7 +22,7 @@ func add_window_mode_items() -> void:
 
 
 func on_window_mode_selected(index : int) -> void: 
-	SettingsSignalBus.emit_on_window_mode_selected(index)
+	SettingsSignalBus.emit_on_window_selected(index)
 	match index:
 		0: #Window Mode
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
