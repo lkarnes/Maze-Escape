@@ -8,7 +8,7 @@ extends Node2D
 const TROPHY = preload("res://scenes/Trophy/Trophy.tscn");
 var maze_arr;
 func _ready():
-	# make sure the size is divisible by 4
+	# make sure the size is divisible by 4e
 	if !maze_arr:
 		build_maze();
 		for _num in range(player_count * 2):
@@ -28,7 +28,16 @@ func build_maze():
 			if maze_arr[y][x] == 1:
 				grass.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(3,2))
 				grass.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
-				walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
+				
+				if x + 1 < maze_arr[y].size() && maze_arr[y][x-1] == 1 && maze_arr[y][x+1] == 1:
+					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(2,0))
+				elif maze_arr[y][x-1] == 1:
+					pass
+					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(3,0))
+				elif x + 1 < maze_arr[y].size() && maze_arr[y][x+1] == 1:
+					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(1,0))
+				else:
+					walls.set_cell(Vector2i(x * 3,y * 3), 0, Vector2i(0,0))
 				
 				# fill y gaps
 				if y > 0 and maze_arr[y - 1][x] == 1:
@@ -43,8 +52,8 @@ func build_maze():
 				if x + 1 < maze_arr[y].size() and maze_arr[y][x + 1] == 1:
 					grass.set_cell(Vector2i((x * 3) + 1,y * 3), 0, Vector2i(3,2))
 					grass.set_cell(Vector2i((x * 3) + 2,y * 3), 0, Vector2i(3,2))
-					walls.set_cell(Vector2i((x * 3) + 1,y * 3), 0, Vector2i(0,0))
-					walls.set_cell(Vector2i((x * 3) + 2,y * 3), 0, Vector2i(0,0))
+					walls.set_cell(Vector2i((x * 3) + 1,y * 3), 0, Vector2i(2,0))
+					walls.set_cell(Vector2i((x * 3) + 2,y * 3), 0, Vector2i(2,0))
 				if x > 0 and maze_arr[y][x - 1] == 1:
 					grass.set_cell(Vector2i((x * 3 - 1),y * 3), 0, Vector2i(3,2))
 					grass.set_cell(Vector2i((x * 3 - 2),y * 3), 0, Vector2i(3,2))	
