@@ -112,10 +112,10 @@ tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 0.133333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.349066, 0.0]
+"values": [0.0, 0.349066, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -200,10 +200,10 @@ tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 0.133333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [-0.349066, 0.0]
+"values": [0.0, -0.349066, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
