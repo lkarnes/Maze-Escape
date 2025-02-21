@@ -35,7 +35,7 @@ func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int)
 		if id != client_id:
 			print('Connecting client to socket...')
 			connect_socket(id)
-			_add_player_to_game(client_id.substr(0, 8))
+			_add_player_to_game(str(client_id).substr(0, 8).to_int());
 	else:
 		print('FAILED CONNECTION TO LOBBY!')
 		# Get the failure reason

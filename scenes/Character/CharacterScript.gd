@@ -19,7 +19,8 @@ signal trigger_respawn;
 var orientation = 'right';
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(name.to_int())
+	# MESSAGE TO CHRIS: THIS IS NOT USING THE NAME 8====D<3
+	set_multiplayer_authority(multiplayer.get_unique_id())
 	print('MULTIPLAYER AUTHORITY: ', get_multiplayer_authority())
 
 func _ready():
@@ -40,6 +41,10 @@ func _physics_process(_delta):
 		handle_movement();
 		handle_attacks();
 		update_gun_pivot_rotation();
+	else:
+		print('get_multiplayer_authority(): ', get_multiplayer_authority());
+		print('name                       :  ', name);
+		print('comparison:', str(get_multiplayer_authority()) == name);
 
 func handle_movement():
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
