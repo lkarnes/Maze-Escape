@@ -18,6 +18,10 @@ signal trigger_respawn;
 };
 var orientation = 'right';
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+	print('MULTIPLAYER AUTHORITY: ', get_multiplayer_authority())
+
 func _ready():
 	var keys = get_action_keys("down")
 	print(keys)
@@ -31,9 +35,11 @@ func _ready():
 			melee_marker.add_child(bat);
 
 func _physics_process(_delta):
-	handle_movement();
-	handle_attacks();
-	update_gun_pivot_rotation();
+	print('PHYSICS PROCESS | MULTIPLAYER AUTHORITY: ', get_multiplayer_authority())
+	if is_multiplayer_authority():
+		handle_movement();
+		handle_attacks();
+		update_gun_pivot_rotation();
 
 func handle_movement():
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");

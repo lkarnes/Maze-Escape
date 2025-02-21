@@ -42,5 +42,9 @@ offset_right = -35.0
 offset_bottom = 79.0
 script = SubResource("GDScript_pr823")
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Character/Character.tscn")
+spawn_path = NodePath("..")
+
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]

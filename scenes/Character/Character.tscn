@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=14 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
@@ -139,6 +139,11 @@ _data = {
 "run_right": SubResource("Animation_i0x3m")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_iccu6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Character" type="CharacterBody2D"]
 light_mask = 0
 position = Vector2(0, -13)
@@ -207,5 +212,8 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_sfky7")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_iccu6")
 
 [connection signal="no_hearts_left" from="HealthBar" to="." method="_on_health_bar_no_hearts_left"]

@@ -22,7 +22,6 @@ SteamManager="*res://scripts/multiplayer/steam/steam_manager.gd"
 SteamNetwork="*res://scripts/multiplayer/networks/steam_network.gd"
 MultiplayerManager="*res://scripts/multiplayer/multiplayer_manager.gd"
 NetworkManager="*res://scripts/multiplayer/networks/network_manager.gd"
-World="*res://scenes/world.gd"
 Maze1="*res://scenes/Maze/maze1.gd"
 
 [debug]

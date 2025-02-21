@@ -103,8 +103,8 @@ func _add_player_to_game(id: int):
 
 	# Ensure maze_instance exists before calling spawn_player()
 	await get_tree().process_frame  # Wait for scene initialization
-	if world_instance.maze_instance == null:
-		push_error("ERROR: maze_instance is still NULL in world_instance!")
+	if world_instance.maze == null:
+		push_error("ERROR: mazed is still NULL in world_instance!")
 
 	var player_to_add = character_scene.instantiate()
 	player_to_add.name = str(id)
