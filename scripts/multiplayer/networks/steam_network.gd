@@ -31,9 +31,11 @@ func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int)
 	if response == 1:
 		print('SUCCESSFUL CONNECTION TO LOBBY!')
 		var id = Steam.getLobbyOwner(lobby)
-		if id != Steam.getSteamID():
+		var client_id = Steam.getSteamID()
+		if id != client_id:
 			print('Connecting client to socket...')
 			connect_socket(id)
+			_add_player_to_game(client_id)
 	else:
 		print('FAILED CONNECTION TO LOBBY!')
 		# Get the failure reason

@@ -35,7 +35,7 @@ func _ready():
 			melee_marker.add_child(bat);
 
 func _physics_process(_delta):
-	print('PHYSICS PROCESS | MULTIPLAYER AUTHORITY: ', get_multiplayer_authority())
+	#print('PHYSICS PROCESS | MULTIPLAYER AUTHORITY: ', get_multiplayer_authority())
 	if is_multiplayer_authority():
 		handle_movement();
 		handle_attacks();
