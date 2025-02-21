@@ -11,7 +11,7 @@ const LOBBY_NAME = "Maze Escape"
 
 func _ready():
 	SteamManager.initialize_steam()
-	multiplayer.peer_connected.connect(_add_player_to_game)
+	#multiplayer.peer_connected.connect(_add_player_to_game)
 	multiplayer.peer_disconnected.connect(_del_player)
 	Steam.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_joined.connect(_on_lobby_joined)
@@ -35,7 +35,7 @@ func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int)
 		if id != client_id:
 			print('Connecting client to socket...')
 			connect_socket(id)
-			_add_player_to_game(client_id)
+			_add_player_to_game(client_id.substr(0, 8))
 	else:
 		print('FAILED CONNECTION TO LOBBY!')
 		# Get the failure reason
