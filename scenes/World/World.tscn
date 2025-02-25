@@ -13,3 +13,7 @@ unique_name_in_owner = true
 
 [node name="Trophy" parent="." instance=ExtResource("3_o2nbj")]
 position = Vector2(60, 61)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Character/Character.tscn")
+spawn_path = NodePath("..")
