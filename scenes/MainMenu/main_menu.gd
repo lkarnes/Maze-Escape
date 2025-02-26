@@ -1,24 +1,30 @@
 extends CenterContainer
 
 @export var open_settings_screen = VBoxContainer
-@onready var lobby_id = $LobbyID
+@onready var world_scene = preload("res://scenes/World/World.tscn")
+var world
 
-
+func _ready():
+	if not world:
+		world = world_scene.instantiate()
+		
+		
 func _process(delta: float) -> void:
 	pass
 
+
 func _on_host_pressed() -> void:
-	#NetworkImpl.create_lobby()
-	get_tree().change_scene_to_file("res://scenes/World/World.tscn")
+	SceneManager.set_scene_as_current(world)
+	MultiplayerManager.become_host()
 
 
 func _on_join_pressed() -> void:
-	var id: int = int(lobby_id.text)
-	NetworkImpl.join_lobby(id)
+	SceneManager.set_scene_as_current(world)
+	MultiplayerManager.join()
 
 
 func _on_settings_pressed():
-	get_tree().change_scene_to_file("res://scenes/MainMenu/Options Menu/options_menu.tscn")
+	SceneManager.change_scene("res://scenes/MainMenu/Options Menu/options_menu.tscn")
 
 func _on_quit_pressed():
 	get_tree().quit()

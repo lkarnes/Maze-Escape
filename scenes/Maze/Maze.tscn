@@ -74,3 +74,10 @@ y_sort_enabled = true
 visibility_layer = 2
 z_index = -6
 color = Color(0.0029886, 0.0028794, 0.00941231, 1)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Character/Character.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 2
+
+[node name="Players" type="Node2D" parent="."]
