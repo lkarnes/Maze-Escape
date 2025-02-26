@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
 
-[sub_resource type="Gradient" id="Gradient_d3jsm"]
+[sub_resource type="Gradient" id="Gradient_lujo2"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.266667, 0.49, 0.69)
 colors = PackedColorArray(1, 1, 1, 1, 0.408188, 0.408188, 0.408188, 1, 0.0966811, 0.0966811, 0.0966811, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kwa6d"]
-gradient = SubResource("Gradient_d3jsm")
+gradient = SubResource("Gradient_lujo2")
 width = 500
 height = 500
 fill = 1

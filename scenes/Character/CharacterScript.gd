@@ -6,6 +6,9 @@ enum weapon_types {GUN, BAT}
 signal trigger_respawn;
 
 @export var trophies: int = 0;
+@export var player_id := 1:
+	set(id):
+		player_id = id
 
 @export var selected_weapon: weapon_types = weapon_types.GUN;
 @onready var animations: AnimationPlayer = %AnimationPlayer;

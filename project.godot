@@ -18,11 +18,17 @@ config/icon="res://icon.svg"
 [autoload]
 
 Maze="*res://scripts/maze/maze.gd"
+MultiplayerManager="*res://scripts/multiplayer/multiplayer_manager.gd"
+SceneManager="*res://scripts/scene_manager.gd"
 
 [debug]
 
 file_logging/enable_file_logging=true
 file_logging/enable_file_logging.pc=false
+
+[display]
+
+window/size/always_on_top=true
 
 [input]
 
