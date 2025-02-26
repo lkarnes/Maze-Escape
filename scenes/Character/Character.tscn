@@ -1,8 +1,15 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=15 format=3 uid="uid://b1qku1upu43gg"]
+=======
+[gd_scene load_steps=23 format=3 uid="uid://b1qku1upu43gg"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
+[ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_input.gd" id="2_cueft"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_awekr"]
 
 [sub_resource type="Gradient" id="Gradient_lujo2"]
 interpolation_mode = 2
@@ -275,11 +282,83 @@ _data = {
 "run_right": SubResource("Animation_i0x3m")
 }
 
+<<<<<<< Updated upstream
+=======
+[sub_resource type="CircleShape2D" id="CircleShape2D_hghvx"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_eliex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5r1ma"]
+resource_name = "lose_heart"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.261799, 0.174533, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.919017, 0.208942, 0.135519, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdgjj"]
+_data = {
+"RESET": SubResource("Animation_eliex"),
+"lose_heart": SubResource("Animation_5r1ma")
+}
+
+>>>>>>> Stashed changes
 [node name="Character" type="CharacterBody2D"]
 light_mask = 0
 position = Vector2(0, -10)
 collision_mask = 2
 script = ExtResource("1_1fefy")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_awekr")
+script = ExtResource("2_cueft")
 
 [node name="HealthBar" parent="." instance=ExtResource("2_3ret0")]
 unique_name_in_owner = true

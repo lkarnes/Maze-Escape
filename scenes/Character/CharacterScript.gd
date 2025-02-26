@@ -23,6 +23,7 @@ var orientation = 'right';
 
 var meelee_weapon;
 var gun;
+var direction: Vector2;
 
 func _ready():
 	var keys = get_action_keys("down")
@@ -35,13 +36,19 @@ func _ready():
 			melee_marker.add_child(bat);
 
 func _physics_process(_delta):
-	handle_movement();
+	_apply_movement_from_input(_delta)
+	_apply_animations(_delta)
+	
+func _apply_movement_from_input(delta):
+	direction = %InputSynchronizer.input_direction;
+	velocity = direction * player_speed;
+
+func _apply_animations(delta):
+	handle_character();
 	handle_attacks();
 	update_gun_pivot_rotation();
 
-func handle_movement():
-	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
-	velocity = direction * player_speed;
+func handle_character():
 	var direction_to_mouse = global_position - get_global_mouse_position();
 	if direction == Vector2.ZERO:
 		if (direction_to_mouse.x < 0):
@@ -60,7 +67,6 @@ func handle_movement():
 		animations.play('run_left');
 		orientation = 'left';
 		
-	
 	if meelee_weapon:
 		meelee_weapon.set_direction(orientation);
 	move_and_slide();
