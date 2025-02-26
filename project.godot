@@ -18,8 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Maze="*res://scripts/maze/maze.gd"
-NetworkSetup="*res://scripts/network/init.gd"
-NetworkImpl="*res://scripts/network/network.gd"
 
 [debug]
 
