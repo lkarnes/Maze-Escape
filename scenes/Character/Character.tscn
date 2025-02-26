@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=17 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
+[ext_resource type="Script" path="res://scenes/Character/hurt_box.gd" id="4_kchbw"]
 
 [sub_resource type="Gradient" id="Gradient_d3jsm"]
 interpolation_mode = 2
@@ -275,6 +276,9 @@ _data = {
 "run_right": SubResource("Animation_i0x3m")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hghvx"]
+radius = 16.0
+
 [node name="Character" type="CharacterBody2D"]
 light_mask = 0
 position = Vector2(0, -10)
@@ -311,6 +315,7 @@ shape = SubResource("CircleShape2D_v3d0l")
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(0, 4)
 collision_mask = 12
+script = ExtResource("4_kchbw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -8)
@@ -338,4 +343,16 @@ libraries = {
 "": SubResource("AnimationLibrary_sfky7")
 }
 
+[node name="InteractZone" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_hghvx")
+
+[node name="ItemHolder" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
 [connection signal="no_hearts_left" from="HealthBar" to="." method="_on_health_bar_no_hearts_left"]
+[connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
+[connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]

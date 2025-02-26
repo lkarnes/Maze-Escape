@@ -1,11 +1,12 @@
 extends Node2D
 
 @export var player_count: int = 4;
-@export var maze_height: int = 8 * player_count;
-@export var maze_width: int = 8 * player_count;
+@export var maze_height: int = 4 * player_count;
+@export var maze_width: int = 4 * player_count;
 @onready var grass: TileMapLayer = %Grass;
 @onready var walls: TileMapLayer = %Walls;
 const TROPHY = preload("res://scenes/Trophy/Trophy.tscn");
+const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn")
 var maze_arr;
 func _ready():
 	# make sure the size is divisible by 4e
@@ -13,6 +14,9 @@ func _ready():
 		build_maze();
 		for _num in range(player_count * 2):
 			place_trophy();
+	
+		for _num in range(player_count * 2):
+			place_trap();
 		
 					
 func build_maze():
@@ -70,7 +74,12 @@ func place_trophy():
 	var trophy = TROPHY.instantiate();
 	trophy.global_position = find_walkable_position();
 	add_child(trophy);
-	
+
+func place_trap():
+	var trap = SPIKE_TRAP.instantiate();
+	trap.global_position = find_walkable_position();
+	add_child(trap);
+
 	
 	
 	

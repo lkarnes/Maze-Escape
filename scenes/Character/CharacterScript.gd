@@ -6,12 +6,18 @@ enum weapon_types {GUN, BAT}
 signal trigger_respawn;
 
 @export var trophies: int = 0;
+var items_in_range: Dictionary = {};
+var holding_item: bool = false;
 
 @export var selected_weapon: weapon_types = weapon_types.GUN;
 @onready var animations: AnimationPlayer = %AnimationPlayer;
 @onready var gun_pivot: Marker2D = %GunPivot;
 @onready var gun_marker: Marker2D = %GunMarker;
 @onready var melee_marker: Marker2D = %MeleeMarker;
+@onready var item_holder: Marker2D = %ItemHolder;
+
+const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn");
+
 @onready var weapon_obj = {
 	"BAT": preload("res://scenes/Weapons/Bat/Bat.tscn"),
 	"GUN": preload("res://scenes/Weapons/Pistol/Pistol.tscn")
@@ -35,6 +41,7 @@ func _physics_process(_delta):
 	handle_movement();
 	handle_attacks();
 	update_gun_pivot_rotation();
+	handle_interact();
 
 func handle_movement():
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
@@ -101,4 +108,53 @@ func get_action_keys(action_name: String) -> Array:
 				keys.append("Joystick Button " + str(event.button_index))
 			elif event is InputEventMouseButton:
 				keys.append("Mouse Button " + str(event.button_index))
-	return keys
+	return keys;
+
+
+func handle_interact():
+	if Input.is_action_just_pressed('interact'):
+		if holding_item:
+			drop_item();
+		elif items_in_range.keys().size() > 0:
+			print('pick uppables: ', items_in_range);
+			var selected_item = items_in_range[items_in_range.keys()[0]];
+			print('selected_item: ', selected_item)
+			if 'item_type' in selected_item:
+				match selected_item.item_type:
+					'spike_trap':
+						selected_item.pickup();
+						pickup_item(selected_item.item_type);
+
+func _on_interact_zone_area_entered(area: Area2D) -> void:
+	if 'can_pickup' in area and area.can_pickup:
+		items_in_range[area.name] = area;
+
+func _on_interact_zone_area_exited(area: Area2D) -> void:
+	items_in_range.erase(area.name);
+
+func pickup_item(item_type):
+	match item_type:
+		'spike_trap':
+			var trap = SPIKE_TRAP.instantiate();
+			melee_marker.visible = false;
+			holding_item = true;
+			trap.z_index = 0;
+			item_holder.add_child(trap);
+			
+func drop_item():
+	var item = item_holder.get_child(0);
+	if 'item_type' in item:
+		match item.item_type:
+			'spike_trap':
+				var trap = SPIKE_TRAP.instantiate();
+				trap.can_pickup = false;
+				trap.global_position = global_position;
+				trap.global_position.y += 5;
+				get_parent().add_child(trap);
+				trap.arm_trap();
+		
+		item.queue_free()
+		holding_item = false;
+	
+			
+		
