@@ -71,6 +71,8 @@ interact={
 2d_physics/layer_3="Weapon"
 2d_physics/layer_4="Projectile"
 2d_physics/layer_5="Collectable"
+2d_physics/layer_6="Floor Trap"
+2d_physics/layer_7="Feet"
 
 [rendering]
 

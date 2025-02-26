@@ -10,7 +10,8 @@ var items_in_range: Dictionary = {};
 var holding_item: bool = false;
 
 @export var selected_weapon: weapon_types = weapon_types.GUN;
-@onready var animations: AnimationPlayer = %AnimationPlayer;
+@onready var movement_animations: AnimationPlayer = %MovementAnimationPlayer;
+@onready var damage_animations: AnimationPlayer = %DamageAnimationPlayer;
 @onready var gun_pivot: Marker2D = %GunPivot;
 @onready var gun_marker: Marker2D = %GunMarker;
 @onready var melee_marker: Marker2D = %MeleeMarker;
@@ -49,19 +50,19 @@ func handle_movement():
 	var direction_to_mouse = global_position - get_global_mouse_position();
 	if direction == Vector2.ZERO:
 		if (direction_to_mouse.x < 0):
-			animations.play('idle-right');
+			movement_animations.play('idle-right');
 			orientation = 'right';
 		else:
-			animations.play('idle-left');
+			movement_animations.play('idle-left');
 			orientation = 'left';
 	elif (direction_to_mouse.x < 0):
-		animations.play('run_right');
+		movement_animations.play('run_right');
 		orientation = 'right';
 	elif (direction_to_mouse.x > 0):
-		animations.play('run_left');
+		movement_animations.play('run_left');
 		orientation = 'left';
-	elif animations.current_animation == 'idle':
-		animations.play('run_left');
+	elif movement_animations.current_animation == 'idle':
+		movement_animations.play('run_left');
 		orientation = 'left';
 		
 	

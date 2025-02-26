@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bd7cqfarpdsey" path="res://assets/audio/spiketrap.wav" id="3_8rw60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_leydw"]
-size = Vector2(16, 16)
+size = Vector2(16, 15.5)
 
 [sub_resource type="Animation" id="Animation_lpfn8"]
 resource_name = "trigger"
@@ -46,7 +46,8 @@ _data = {
 
 [node name="SpikeTrap" type="Area2D"]
 z_index = -1
-collision_layer = 16
+collision_layer = 48
+collision_mask = 64
 script = ExtResource("1_c2sb5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
