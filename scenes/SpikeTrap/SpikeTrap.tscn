@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2nw3wqcvdvge"]
+[gd_scene load_steps=8 format=3 uid="uid://c2nw3wqcvdvge"]
 
 [ext_resource type="Script" path="res://scenes/SpikeTrap/spike_trap.gd" id="1_c2sb5"]
 [ext_resource type="Texture2D" uid="uid://od3gtou3xeqk" path="res://assets/Character/spike-trap.png" id="2_cwcqq"]
+[ext_resource type="AudioStream" uid="uid://bd7cqfarpdsey" path="res://assets/audio/spiketrap.wav" id="3_8rw60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_leydw"]
 size = Vector2(16, 16)
@@ -62,5 +63,10 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_udpqy")
 }
+
+[node name="TriggerNoise" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_8rw60")
+volume_db = -5.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
