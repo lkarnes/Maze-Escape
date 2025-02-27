@@ -9,9 +9,10 @@ signal trigger_respawn;
 @export var player_id := 1:
 	set(id):
 		player_id = id
-
+		%InputSynchronizer.set_multiplayer_authority(id)
+		
 @export var selected_weapon: weapon_types = weapon_types.GUN;
-@onready var animations: AnimationPlayer = %AnimationPlayer;
+@onready var animations: AnimationPlayer = %MovementAnimationPlayer;
 @onready var gun_pivot: Marker2D = %GunPivot;
 @onready var gun_marker: Marker2D = %GunMarker;
 @onready var melee_marker: Marker2D = %MeleeMarker;
@@ -36,8 +37,9 @@ func _ready():
 			melee_marker.add_child(bat);
 
 func _physics_process(_delta):
-	_apply_movement_from_input(_delta)
-	_apply_animations(_delta)
+	if multiplayer.is_server():
+		_apply_movement_from_input(_delta)
+		_apply_animations(_delta)
 	
 func _apply_movement_from_input(delta):
 	direction = %InputSynchronizer.input_direction;

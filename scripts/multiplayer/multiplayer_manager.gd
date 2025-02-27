@@ -41,7 +41,7 @@ func _add_player_to_game(id: int):
 	
 	var spawn_position: Vector2i = maze.find_walkable_position()
 	print('POS: %s' % str(spawn_position))
-	player_to_add.position = spawn_position
+	player_to_add.global_position = spawn_position
 	_players_spawn_node.add_child(player_to_add, true)
 	
 func _del_player(id: int):

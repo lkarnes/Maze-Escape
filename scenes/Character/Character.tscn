@@ -1,15 +1,23 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=15 format=3 uid="uid://b1qku1upu43gg"]
-=======
-[gd_scene load_steps=23 format=3 uid="uid://b1qku1upu43gg"]
->>>>>>> Stashed changes
+[gd_scene load_steps=24 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
 [ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_input.gd" id="2_cueft"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
+[ext_resource type="Script" path="res://scenes/Character/hurt_box.gd" id="4_kchbw"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_olwbw"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_awekr"]
+properties/0/path = NodePath("InputSynchronizer:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_lujo2"]
 interpolation_mode = 2
@@ -32,6 +40,9 @@ radius = 4.12311
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_srfnj"]
 radius = 7.0
 height = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rtyty"]
+radius = 5.0
 
 [sub_resource type="Animation" id="Animation_ivmmu"]
 length = 0.001
@@ -82,6 +93,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_kw0jt"]
@@ -282,8 +317,6 @@ _data = {
 "run_right": SubResource("Animation_i0x3m")
 }
 
-<<<<<<< Updated upstream
-=======
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghvx"]
 radius = 16.0
 
@@ -348,12 +381,14 @@ _data = {
 "lose_heart": SubResource("Animation_5r1ma")
 }
 
->>>>>>> Stashed changes
 [node name="Character" type="CharacterBody2D"]
 light_mask = 0
 position = Vector2(0, -10)
 collision_mask = 2
 script = ExtResource("1_1fefy")
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_olwbw")
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 unique_name_in_owner = true
@@ -362,8 +397,8 @@ script = ExtResource("2_cueft")
 
 [node name="HealthBar" parent="." instance=ExtResource("2_3ret0")]
 unique_name_in_owner = true
-offset_top = -28.0
-offset_bottom = -28.0
+offset_top = -20.0
+offset_bottom = -20.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -7)
@@ -384,17 +419,28 @@ vframes = 2
 frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_v3d0l")
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(0, 4)
 collision_mask = 12
+script = ExtResource("4_kchbw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_srfnj")
 debug_color = Color(0.964706, 0, 0.486275, 0.419608)
+
+[node name="HurtBox2" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 64
+collision_mask = 12
+script = ExtResource("4_kchbw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox2"]
+shape = SubResource("CircleShape2D_rtyty")
+debug_color = Color(0.935708, 0.252602, 3.85046e-07, 0.419608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 4)
@@ -411,10 +457,29 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 position = Vector2(4, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="MovementAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_sfky7")
 }
 
+[node name="InteractZone" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractZone"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_hghvx")
+debug_color = Color(0.788235, 0.854902, 0.0156863, 0.129412)
+
+[node name="ItemHolder" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_kdgjj")
+}
+
 [connection signal="no_hearts_left" from="HealthBar" to="." method="_on_health_bar_no_hearts_left"]
+[connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]
+[connection signal="area_exited" from="InteractZone" to="." method="_on_interact_zone_area_exited"]
