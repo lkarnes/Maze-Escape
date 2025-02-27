@@ -1,0 +1,145 @@
+[gd_scene load_steps=12 format=3 uid="uid://xv7bt50pgkgi"]
+
+[ext_resource type="Texture2D" uid="uid://bhp3gogmghybh" path="res://assets/Weapons/turret-legs.png" id="1_7l00q"]
+[ext_resource type="Script" path="res://scenes/Turret/turret.gd" id="1_al68w"]
+[ext_resource type="Texture2D" uid="uid://lpjj51s6h2i5" path="res://assets/Weapons/turret-head.png" id="2_e1sn1"]
+
+[sub_resource type="Curve" id="Curve_rqxyv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.996241, 0.382455), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_w5dcu"]
+resource_name = "scan"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretHeadSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.523599, 0.523599, -0.523599]
+}
+
+[sub_resource type="Animation" id="Animation_fkk0x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretHeadSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kovdu"]
+_data = {
+"RESET": SubResource("Animation_fkk0x"),
+"scan": SubResource("Animation_w5dcu")
+}
+
+[sub_resource type="Animation" id="Animation_2pl31"]
+resource_name = "shoot"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretHeadSprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 0), Vector2(6, 0), Vector2(8, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8grbe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretHeadSprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aiwmn"]
+_data = {
+"RESET": SubResource("Animation_8grbe"),
+"shoot": SubResource("Animation_2pl31")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hiv3d"]
+size = Vector2(16, 16)
+
+[node name="Turret" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_al68w")
+
+[node name="TurretLegsSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(8, 0)
+texture = ExtResource("1_7l00q")
+
+[node name="TurretHeadSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_e1sn1")
+offset = Vector2(8, 0)
+
+[node name="Laser" type="Line2D" parent="TurretHeadSprite"]
+unique_name_in_owner = true
+z_index = -1
+points = PackedVector2Array(0, 0, 100, 0)
+width = 0.5
+width_curve = SubResource("Curve_rqxyv")
+default_color = Color(0.759044, 0, 0.0636982, 1)
+
+[node name="RayCast2D" type="RayCast2D" parent="TurretHeadSprite"]
+modulate = Color(0.643452, 0, 0.0798623, 1)
+target_position = Vector2(1000, 0)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="PlayerRaycast" type="RayCast2D" parent="TurretHeadSprite"]
+modulate = Color(0.106922, 0.407371, 0, 1)
+target_position = Vector2(1000, 0)
+collide_with_areas = true
+
+[node name="BulletExit" type="Marker2D" parent="TurretHeadSprite"]
+unique_name_in_owner = true
+position = Vector2(14, 0)
+
+[node name="RotationAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_kovdu")
+}
+
+[node name="ShootAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_aiwmn")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hiv3d")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_timer_timeout"]

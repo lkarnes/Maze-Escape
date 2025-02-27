@@ -7,6 +7,8 @@ extends Node2D
 @onready var walls: TileMapLayer = %Walls;
 const TROPHY = preload("res://scenes/Trophy/Trophy.tscn");
 const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn")
+const TURRET = preload("res://scenes/Turret/Turret.tscn");
+
 var maze_arr;
 func _ready():
 	# make sure the size is divisible by 4e
@@ -15,7 +17,7 @@ func _ready():
 		for _num in range(player_count * 2):
 			place_trophy();
 	
-		for _num in range(player_count * 2):
+		for _num in range(player_count * 10):
 			place_trap();
 		
 					
@@ -76,10 +78,13 @@ func place_trophy():
 	add_child(trophy);
 
 func place_trap():
-	var trap = SPIKE_TRAP.instantiate();
+	var trap = choose_trap();
 	trap.global_position = find_walkable_position();
 	add_child(trap);
 
+func choose_trap():
+	var trap_arr = [SPIKE_TRAP, TURRET];
+	return trap_arr.pick_random().instantiate();
 	
 	
 	

@@ -18,6 +18,7 @@ var holding_item: bool = false;
 @onready var item_holder: Marker2D = %ItemHolder;
 
 const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn");
+const TURRET = preload("res://scenes/Turret/Turret.tscn");
 
 @onready var weapon_obj = {
 	"BAT": preload("res://scenes/Weapons/Bat/Bat.tscn"),
@@ -43,6 +44,7 @@ func _physics_process(_delta):
 	handle_attacks();
 	update_gun_pivot_rotation();
 	handle_interact();
+	handle_rotate();
 
 func handle_movement():
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
@@ -125,6 +127,9 @@ func handle_interact():
 					'spike_trap':
 						selected_item.pickup();
 						pickup_item(selected_item.item_type);
+					'turret':
+						selected_item.pickup();
+						pickup_item(selected_item.item_type);
 
 func _on_interact_zone_area_entered(area: Area2D) -> void:
 	if 'can_pickup' in area and area.can_pickup:
@@ -141,6 +146,12 @@ func pickup_item(item_type):
 			holding_item = true;
 			trap.z_index = 0;
 			item_holder.add_child(trap);
+		'turret':
+			var trap = TURRET.instantiate();
+			melee_marker.visible = false;
+			holding_item = true;
+			trap.z_index = 0;
+			item_holder.add_child(trap);
 			
 func drop_item():
 	var item = item_holder.get_child(0);
@@ -153,9 +164,20 @@ func drop_item():
 				trap.global_position.y += 5;
 				get_parent().add_child(trap);
 				trap.arm_trap();
+			'turret':
+				var trap = TURRET.instantiate();
+				trap.can_pickup = false;
+				trap.global_position = global_position;
+				trap.global_position.y += 5;
+				trap.rotation = item.rotation;
+				get_parent().add_child(trap);
+				trap.arm_trap();
 		
 		item.queue_free()
 		holding_item = false;
 	
-			
+func handle_rotate():
+	var item = item_holder.get_child(0);
+	if holding_item && Input.is_action_just_pressed('rotate') && ('can_rotate' in item && item.can_rotate):
+		item.rotate(deg_to_rad(90));
 		

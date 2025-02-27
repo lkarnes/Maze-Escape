@@ -1,11 +1,26 @@
 [gd_scene load_steps=8 format=3 uid="uid://c2nw3wqcvdvge"]
 
 [ext_resource type="Script" path="res://scenes/SpikeTrap/spike_trap.gd" id="1_c2sb5"]
-[ext_resource type="Texture2D" uid="uid://od3gtou3xeqk" path="res://assets/Character/spike-trap.png" id="2_cwcqq"]
+[ext_resource type="Texture2D" uid="uid://od3gtou3xeqk" path="res://assets/Weapons/spike-trap.png" id="2_cwcqq"]
 [ext_resource type="AudioStream" uid="uid://bd7cqfarpdsey" path="res://assets/audio/spiketrap.wav" id="3_8rw60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_leydw"]
 size = Vector2(16, 15.5)
+
+[sub_resource type="Animation" id="Animation_w40hj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_lpfn8"]
 resource_name = "trigger"
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [4, 3, 2, 1]
-}
-
-[sub_resource type="Animation" id="Animation_w40hj"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_udpqy"]
