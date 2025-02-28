@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://b1qku1upu43gg"]
+[gd_scene load_steps=23 format=3 uid="uid://b1qku1upu43gg"]
 
 [ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
 [ext_resource type="Script" path="res://scenes/Character/hurt_box.gd" id="4_kchbw"]
+[ext_resource type="AudioStream" uid="uid://bnu7cmbgh0tgv" path="res://assets/audio/collect-trophy.wav" id="5_6k16a"]
+[ext_resource type="AudioStream" uid="uid://c2wn2clxdoers" path="res://assets/audio/punch.mp3" id="6_0b31m"]
 
 [sub_resource type="Gradient" id="Gradient_d3jsm"]
 interpolation_mode = 2
@@ -458,6 +460,15 @@ debug_color = Color(0.788235, 0.854902, 0.0156863, 0.129412)
 
 [node name="ItemHolder" type="Marker2D" parent="."]
 unique_name_in_owner = true
+
+[node name="TrophyAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_6k16a")
+
+[node name="HurtAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_0b31m")
+volume_db = -5.0
 
 [connection signal="no_hearts_left" from="HealthBar" to="." method="_on_health_bar_no_hearts_left"]
 [connection signal="area_entered" from="InteractZone" to="." method="_on_interact_zone_area_entered"]

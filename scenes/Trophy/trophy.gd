@@ -1,8 +1,11 @@
 extends Area2D
 
+@onready var animations: AnimationPlayer = %AnimationPlayer;
 
-func _on_body_entered(body: Node2D) -> void:
-	if "trophies" in body: 
-		body.trophies += 1;
-		print(body.trophies);
+func _ready():
+	animations.play('idle');
+
+func _on_body_entered(body: Node2D):
+	if "add_trophy" in body: 
+		body.add_trophy()
 		queue_free();

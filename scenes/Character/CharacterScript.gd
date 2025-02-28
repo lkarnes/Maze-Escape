@@ -16,6 +16,7 @@ var holding_item: bool = false;
 @onready var gun_marker: Marker2D = %GunMarker;
 @onready var melee_marker: Marker2D = %MeleeMarker;
 @onready var item_holder: Marker2D = %ItemHolder;
+@onready var trophy_audio: AudioStreamPlayer2D = %TrophyAudio;
 
 const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn");
 const TURRET = preload("res://scenes/Turret/Turret.tscn");
@@ -117,9 +118,7 @@ func handle_interact():
 		if holding_item:
 			drop_item();
 		elif items_in_range.keys().size() > 0:
-			print('pick uppables: ', items_in_range);
 			var selected_item = items_in_range[items_in_range.keys()[0]];
-			print('selected_item: ', selected_item)
 			if 'item_type' in selected_item:
 				match selected_item.item_type:
 					'spike_trap':
@@ -179,4 +178,9 @@ func handle_rotate():
 		var item = item_holder.get_child(0);
 		if holding_item && Input.is_action_just_pressed('rotate') && ('can_rotate' in item && item.can_rotate):
 			item.rotate(deg_to_rad(90));
-		
+
+func add_trophy():
+	trophies += 1;
+	trophy_audio.pitch_scale = 1 + trophies / 10.0;
+	print(trophy_audio.pitch_scale);
+	trophy_audio.play();

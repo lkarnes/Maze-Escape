@@ -25,7 +25,6 @@ func _process(delta):
 	if trap_armed:
 		raycast.force_raycast_update()  # Update raycast collision
 		var end_position: Vector2 = Vector2(max_laser_length, 0)
-		
 		if target and 'global_position' in target:
 			var angle_to_target = rad_to_deg(get_angle_to(target.global_position));
 			var collider = raycast.get_collider();
