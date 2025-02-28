@@ -1,8 +1,8 @@
 extends Node2D
 
 @export var player_count: int = 4;
-@export var maze_height: int = 8 * player_count;
-@export var maze_width: int = 8 * player_count;
+@export var maze_height: int = 1 * player_count;
+@export var maze_width: int = 1 * player_count;
 @onready var grass: TileMapLayer = %Grass;
 @onready var walls: TileMapLayer = %Walls;
 const TROPHY = preload("res://scenes/Trophy/Trophy.tscn");

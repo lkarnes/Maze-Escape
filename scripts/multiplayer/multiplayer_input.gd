@@ -3,6 +3,11 @@ extends MultiplayerSynchronizer
 var input_direction: Vector2
 
 func _ready():
+	pass
+# Need to set authority in enter_tree not ready
+
+
+func _enter_tree():
 	if get_multiplayer_authority() != multiplayer.get_unique_id():
 		set_process(false)
 		set_physics_process(false)
