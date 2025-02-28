@@ -5,7 +5,8 @@ func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
 	position += direction * SPEED * delta;
 
-func _on_body_entered(body):
+func _on_area_entered(area: Area2D) -> void:
+	print(area);
 	queue_free();
-	if body.has_method("take_damage"):
-		body.take_damage()
+	if area.has_method("take_damage"):
+		area.take_damage(1)

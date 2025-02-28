@@ -1,10 +1,14 @@
 extends Area2D
 
+const GUN_SHOT = preload("res://scenes/Weapons/Pistol/GunShotNoise.tscn");
+
 var can_pickup = true;
 var trap_armed = false;
 var item_type = 'turret';
 var on_cooldown = false;
 var can_rotate = true;
+var target;
+
 @onready var turret_head: Sprite2D = %TurretHeadSprite;
 @onready var laser: Line2D = %Laser;
 @onready var rotation_animations = %RotationAnimationPlayer;
@@ -21,12 +25,24 @@ func _process(delta):
 	if trap_armed:
 		raycast.force_raycast_update()  # Update raycast collision
 		var end_position: Vector2 = Vector2(max_laser_length, 0)
+		
+		if target and 'global_position' in target:
+			var angle_to_target = rad_to_deg(get_angle_to(target.global_position));
+			var collider = raycast.get_collider();
+			if (raycast.is_colliding() and "take_damage" not in collider) or (angle_to_target > 30 or angle_to_target < -30):
+				target = null;
+				rotation_animations.play('scan');
+			else:
+				turret_head.rotation = get_angle_to(target.global_position);
+		elif !rotation_animations.is_playing():
+			rotation_animations.play('scan');
 
 		# Check for collision
 		if raycast.is_colliding():
 			end_position = to_local(raycast.get_collision_point())  # Stop at collision point
 			var collider = raycast.get_collider()  # Get the object that the raycast hit
 			if "take_damage" in collider && !on_cooldown:
+				target = collider;
 				on_cooldown = true;
 				await get_tree().create_timer(0.1).timeout;
 				shoot();
@@ -36,7 +52,7 @@ func _process(delta):
 		laser.clear_points()
 		laser.add_point(Vector2.ZERO)
 		end_position.y = 0;
-		end_position.x;
+		end_position.x += 10;
 		laser.add_point(end_position)
 
 func _ready() -> void:
@@ -52,16 +68,16 @@ func arm_trap() -> void:
 	rotation_animations.play('scan');
 	
 func shoot():
+	var gunshot = GUN_SHOT.instantiate();
+	add_child(gunshot);
 	rotation_animations.pause();
 	create_projectile();
 	shoot_animations.play('shoot');
 	await get_tree().create_timer(0.3).timeout;
-	rotation_animations.play();
 	
 func create_projectile():
 	var bullet = BULLET.instantiate();
 	bullet.global_position = bullet_exit.global_position;
-	print(turret_head.rotation);
 	bullet.rotation = (bullet_exit.global_position - global_position).angle()
 	add_child(bullet);
 	

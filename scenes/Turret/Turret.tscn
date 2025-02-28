@@ -8,6 +8,21 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.996241, 0.382455), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Animation" id="Animation_fkk0x"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretHeadSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.523599]
+}
+
 [sub_resource type="Animation" id="Animation_w5dcu"]
 resource_name = "scan"
 length = 3.0
@@ -25,25 +40,25 @@ tracks/0/keys = {
 "values": [-0.523599, 0.523599, -0.523599]
 }
 
-[sub_resource type="Animation" id="Animation_fkk0x"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kovdu"]
+_data = {
+"RESET": SubResource("Animation_fkk0x"),
+"scan": SubResource("Animation_w5dcu")
+}
+
+[sub_resource type="Animation" id="Animation_8grbe"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TurretHeadSprite:rotation")
+tracks/0/path = NodePath("TurretHeadSprite:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kovdu"]
-_data = {
-"RESET": SubResource("Animation_fkk0x"),
-"scan": SubResource("Animation_w5dcu")
+"values": [Vector2(8, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2pl31"]
@@ -60,21 +75,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(8, 0), Vector2(6, 0), Vector2(8, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_8grbe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TurretHeadSprite:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(8, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aiwmn"]
@@ -111,7 +111,7 @@ default_color = Color(0.759044, 0, 0.0636982, 1)
 [node name="RayCast2D" type="RayCast2D" parent="TurretHeadSprite"]
 modulate = Color(0.643452, 0, 0.0798623, 1)
 target_position = Vector2(1000, 0)
-collision_mask = 3
+collision_mask = 67
 collide_with_areas = true
 
 [node name="PlayerRaycast" type="RayCast2D" parent="TurretHeadSprite"]

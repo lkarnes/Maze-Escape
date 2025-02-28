@@ -66,7 +66,6 @@ func handle_movement():
 	elif movement_animations.current_animation == 'idle':
 		movement_animations.play('run_left');
 		orientation = 'left';
-		
 	
 	if meelee_weapon:
 		meelee_weapon.set_direction(orientation);
@@ -112,7 +111,6 @@ func get_action_keys(action_name: String) -> Array:
 			elif event is InputEventMouseButton:
 				keys.append("Mouse Button " + str(event.button_index))
 	return keys;
-
 
 func handle_interact():
 	if Input.is_action_just_pressed('interact'):
@@ -177,7 +175,8 @@ func drop_item():
 		holding_item = false;
 	
 func handle_rotate():
-	var item = item_holder.get_child(0);
-	if holding_item && Input.is_action_just_pressed('rotate') && ('can_rotate' in item && item.can_rotate):
-		item.rotate(deg_to_rad(90));
+	if item_holder.get_child_count() > 0:
+		var item = item_holder.get_child(0);
+		if holding_item && Input.is_action_just_pressed('rotate') && ('can_rotate' in item && item.can_rotate):
+			item.rotate(deg_to_rad(90));
 		

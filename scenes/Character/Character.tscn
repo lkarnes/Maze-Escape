@@ -397,7 +397,7 @@ vframes = 2
 frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(0, 7)
 shape = SubResource("CircleShape2D_v3d0l")
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -411,7 +411,7 @@ shape = SubResource("CapsuleShape2D_srfnj")
 debug_color = Color(0.964706, 0, 0.486275, 0.419608)
 
 [node name="HurtBox2" type="Area2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(0, 7)
 collision_layer = 64
 collision_mask = 12
 script = ExtResource("4_kchbw")
