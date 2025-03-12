@@ -36,14 +36,18 @@ func _add_player_to_game(id: int):
 	print('Player %s joined the game!' % str(id))
 	
 	var player_to_add = character_scene.instantiate()
-	player_to_add.player_id = id
+	#player_to_add.player_id = id
 	player_to_add.name = str(id)
+	
+	_players_spawn_node.add_child(player_to_add, true)
 	
 	var spawn_position: Vector2i = maze.find_walkable_position()
 	print('POS: %s' % str(spawn_position))
 	player_to_add.global_position = spawn_position
-	_players_spawn_node.add_child(player_to_add, true)
-	
+	if id != 1 and multiplayer.is_server():
+		player_to_add.set_pos.rpc_id(id, spawn_position)
+		
+		
 func _del_player(id: int):
 	print('Player %s left the game!' % str(id))
 	if _players_spawn_node.has_node(str(id)):

@@ -8,4 +8,3 @@ func _physics_process(delta: float) -> void:
 func _on_trigger_respawn(character):
 	character.queue_free();
 	await get_tree().create_timer(2.0).timeout;
-

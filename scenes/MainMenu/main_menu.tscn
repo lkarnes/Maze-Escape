@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bixoc0eh7q0s4"]
 
 [ext_resource type="Theme" uid="uid://d0xbo7kpqf3i5" path="res://assets/Themes/button_theme.tres" id="1_k2wp4"]
-[ext_resource type="Script" path="res://scenes/MainMenu/main_menu.gd" id="1_m0eg5"]
+[ext_resource type="Script" uid="uid://wdhegd5su7ne" path="res://scenes/MainMenu/main_menu.gd" id="1_m0eg5"]
 [ext_resource type="AudioStream" uid="uid://chviujmca8e7h" path="res://assets/Music/Corridors of Dread-1.mp3" id="3_hjmsq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m617b"]

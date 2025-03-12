@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwwnu8sjv0f7"]
+[gd_scene load_steps=5 format=3 uid="uid://dwwnu8sjv0f7"]
 
-[ext_resource type="Script" path="res://scenes/World/world.gd" id="1_hihsg"]
+[ext_resource type="Script" uid="uid://co36oxyhy01b3" path="res://scenes/World/world.gd" id="1_hihsg"]
 [ext_resource type="PackedScene" uid="uid://djs61chrsprsd" path="res://scenes/Trophy/Trophy.tscn" id="3_o2nbj"]
 [ext_resource type="PackedScene" uid="uid://wdgkr6qdlw3v" path="res://scenes/Maze/Maze.tscn" id="3_wipgs"]
+[ext_resource type="PackedScene" uid="uid://b6ebiya2iirov" path="res://scenes/Camera/Camera.tscn" id="4_3fwkt"]
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
@@ -13,3 +14,5 @@ unique_name_in_owner = true
 
 [node name="Trophy" parent="." instance=ExtResource("3_o2nbj")]
 position = Vector2(60, 61)
+
+[node name="Camera2D" parent="." instance=ExtResource("4_3fwkt")]

@@ -1,21 +1,18 @@
 [gd_scene load_steps=24 format=3 uid="uid://b1qku1upu43gg"]
 
-[ext_resource type="Script" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
+[ext_resource type="Script" uid="uid://b8pexfbdp7gff" path="res://scenes/Character/CharacterScript.gd" id="1_1fefy"]
 [ext_resource type="PackedScene" uid="uid://cfrp84knjy42h" path="res://scenes/Character/HealthBar/HealthBar.tscn" id="2_3ret0"]
-[ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_input.gd" id="2_cueft"]
+[ext_resource type="Script" uid="uid://dphohclc4vpx" path="res://scripts/multiplayer/multiplayer_input.gd" id="2_cueft"]
 [ext_resource type="Texture2D" uid="uid://beoo5owsecpx1" path="res://assets/Character/spaceman-spritesheet.png" id="4_g2d61"]
-[ext_resource type="Script" path="res://scenes/Character/hurt_box.gd" id="4_kchbw"]
+[ext_resource type="Script" uid="uid://b40k2mddes0ub" path="res://scenes/Character/hurt_box.gd" id="4_kchbw"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_olwbw"]
-properties/0/path = NodePath(".:player_id")
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:position")
+properties/1/path = NodePath("MovementAnimationPlayer:current_animation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("MovementAnimationPlayer:current_animation")
-properties/2/spawn = true
-properties/2/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_awekr"]
 properties/0/path = NodePath("InputSynchronizer:input_direction")
@@ -313,11 +310,11 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sfky7"]
 _data = {
-"RESET": SubResource("Animation_ivmmu"),
-"idle-left": SubResource("Animation_kw0jt"),
-"idle-right": SubResource("Animation_ofj16"),
-"run_left": SubResource("Animation_l5xq4"),
-"run_right": SubResource("Animation_i0x3m")
+&"RESET": SubResource("Animation_ivmmu"),
+&"idle-left": SubResource("Animation_kw0jt"),
+&"idle-right": SubResource("Animation_ofj16"),
+&"run_left": SubResource("Animation_l5xq4"),
+&"run_right": SubResource("Animation_i0x3m")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghvx"]
@@ -380,15 +377,16 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kdgjj"]
 _data = {
-"RESET": SubResource("Animation_eliex"),
-"lose_heart": SubResource("Animation_5r1ma")
+&"RESET": SubResource("Animation_eliex"),
+&"lose_heart": SubResource("Animation_5r1ma")
 }
 
-[node name="Character" type="CharacterBody2D"]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("inputSync")]
 light_mask = 0
 position = Vector2(0, -10)
 collision_mask = 2
 script = ExtResource("1_1fefy")
+inputSync = NodePath("InputSynchronizer")
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_olwbw")
@@ -445,9 +443,6 @@ script = ExtResource("4_kchbw")
 shape = SubResource("CircleShape2D_rtyty")
 debug_color = Color(0.935708, 0.252602, 3.85046e-07, 0.419608)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-
 [node name="MeleeMarker" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-9, -3)
@@ -462,7 +457,7 @@ position = Vector2(4, 0)
 [node name="MovementAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_sfky7")
+&"": SubResource("AnimationLibrary_sfky7")
 }
 
 [node name="InteractZone" type="Area2D" parent="."]
@@ -479,7 +474,7 @@ unique_name_in_owner = true
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_kdgjj")
+&"": SubResource("AnimationLibrary_kdgjj")
 }
 
 [connection signal="no_hearts_left" from="HealthBar" to="." method="_on_health_bar_no_hearts_left"]

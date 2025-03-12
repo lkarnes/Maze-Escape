@@ -3,13 +3,14 @@ extends CharacterBody2D
 var player_speed: int = 150;
 enum weapon_types {GUN, BAT}
 
+@export var inputSync: MultiplayerSynchronizer;
+
 signal trigger_respawn;
 
 @export var trophies: int = 0;
 @export var player_id := 1:
 	set(id):
 		player_id = id
-		%InputSynchronizer.set_multiplayer_authority(id)
 		
 @export var selected_weapon: weapon_types = weapon_types.GUN;
 @onready var animations: AnimationPlayer = %MovementAnimationPlayer;
@@ -26,6 +27,13 @@ var meelee_weapon;
 var gun;
 var direction: Vector2;
 
+@rpc('any_peer', 'call_local')
+func set_pos(position):
+	global_position = position
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 func _ready():
 	var keys = get_action_keys("down")
 	match selected_weapon:
@@ -35,14 +43,21 @@ func _ready():
 		weapon_types.BAT:
 			var bat = weapon_obj["BAT"].instantiate();
 			melee_marker.add_child(bat);
+	print('AUTHORITY: ', name, ' ', is_multiplayer_authority())
+	if is_multiplayer_authority():
+		var camera = get_tree().root.get_camera_2d()
+		if camera is Camera:
+			camera.set_target(self)
+			print(name, ' is target set')
+			print(self, ' self')
 
 func _physics_process(_delta):
-	if multiplayer.is_server():
+	if is_multiplayer_authority():
 		_apply_movement_from_input(_delta)
 		_apply_animations(_delta)
 	
 func _apply_movement_from_input(delta):
-	direction = %InputSynchronizer.input_direction;
+	direction = inputSync.input_direction;
 	velocity = direction * player_speed;
 
 func _apply_animations(delta):
