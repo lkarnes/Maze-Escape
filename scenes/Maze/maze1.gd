@@ -6,7 +6,8 @@ extends Node2D
 @onready var grass: TileMapLayer = %Grass;
 @onready var walls: TileMapLayer = %Walls;
 const TROPHY = preload("res://scenes/Trophy/Trophy.tscn");
-const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn")
+const HEALTHPACK = preload("res://scenes/HealthPack/HealthPack.tscn");
+const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn");
 const TURRET = preload("res://scenes/Turret/Turret.tscn");
 
 var maze_arr;
@@ -14,11 +15,20 @@ func _ready():
 	# make sure the size is divisible by 4e
 	if !maze_arr:
 		build_maze();
+		
+		var taken_coords = []
+		
 		for _num in range(player_count * 2):
-			place_trophy();
+			var coords = place_trophy(taken_coords);
+			taken_coords.append(coords);
 	
-		for _num in range(player_count * 10):
-			place_trap();
+		for _num in range(player_count * 2):
+			var coords = place_trap(taken_coords);
+			taken_coords.append(coords);
+			
+		for _num in range(player_count):
+			var coords = place_health_pack(taken_coords);
+			taken_coords.append(coords);
 		
 					
 func build_maze():
@@ -55,7 +65,7 @@ func build_maze():
 					walls.set_cell(Vector2i((x * 3) + 1,y * 3), 0, Vector2i(2,0))
 					walls.set_cell(Vector2i((x * 3) + 2,y * 3), 0, Vector2i(2,0))
 					
-func find_walkable_position() -> Vector2i:
+func find_walkable_position(taken_coords = []) -> Vector2i:
 	var position: Vector2i;
 	var found_valid_position = false;
 	var z = 0;
@@ -66,25 +76,31 @@ func find_walkable_position() -> Vector2i:
 		var x = randi_range(0, maze_width);
 		var y = randi_range(0, maze_height)
 		
-		if maze_arr[y][x] == 0:
+		if maze_arr[y][x] == 0 and !taken_coords.has(to_global(Vector2i(x * 16 * 3,y * 16 * 3))):
 			found_valid_position = true;
 			position = to_global(Vector2i(x * 16 * 3,y * 16 * 3))
 	return position;
 	
 	
-func place_trophy():
+func place_trophy(taken_coords):
 	var trophy = TROPHY.instantiate();
-	trophy.global_position = find_walkable_position();
+	trophy.global_position = find_walkable_position(taken_coords);
 	add_child(trophy);
+	return trophy.global_position;
 
-func place_trap():
+func place_trap(taken_coords):
 	var trap = choose_trap();
-	trap.global_position = find_walkable_position();
+	trap.global_position = find_walkable_position(taken_coords);
 	add_child(trap);
+	return trap.global_position;
 
 func choose_trap():
 	var trap_arr = [SPIKE_TRAP, TURRET];
 	return trap_arr.pick_random().instantiate();
 	
-	
+func place_health_pack(taken_coords):
+	var health = HEALTHPACK.instantiate();
+	health.global_position = find_walkable_position(taken_coords);
+	add_child(health);
+	return health.global_position;
 	

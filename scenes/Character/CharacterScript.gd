@@ -17,6 +17,7 @@ var holding_item: bool = false;
 @onready var melee_marker: Marker2D = %MeleeMarker;
 @onready var item_holder: Marker2D = %ItemHolder;
 @onready var trophy_audio: AudioStreamPlayer2D = %TrophyAudio;
+@onready var health_bar = %HealthBar;
 
 const SPIKE_TRAP = preload("res://scenes/SpikeTrap/SpikeTrap.tscn");
 const TURRET = preload("res://scenes/Turret/Turret.tscn");
@@ -184,3 +185,7 @@ func add_trophy():
 	trophy_audio.pitch_scale = 1 + trophies / 10.0;
 	print(trophy_audio.pitch_scale);
 	trophy_audio.play();
+	
+func add_health():
+	health_bar.gain_heart()
+	
